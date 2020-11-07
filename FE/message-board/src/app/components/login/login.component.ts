@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   pwd = new FormControl();
 
   constructor(private loginService: LoginService,
-              private state: GlobalStateService) { 
+              public state: GlobalStateService) { 
   }
 
   ngOnInit(): void {

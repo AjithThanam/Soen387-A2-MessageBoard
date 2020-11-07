@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class GlobalStateService {
 
   isLoggedIn: boolean;
+  userId: string;
 
   constructor() { 
     this.setUp();
@@ -13,10 +14,17 @@ export class GlobalStateService {
 
   setUp(){
     this.isLoggedIn = localStorage.getItem('loggedIn') != null && localStorage.getItem('loggedIn') === 'true';
+    this.userId = localStorage.getItem('id');
+
   }
 
   setLoggedIn(loggedIn: boolean){
     this.isLoggedIn = loggedIn;
     localStorage.setItem('loggedIn', loggedIn + "");
+  }
+
+  setUserId(id: string){
+    this.userId = id;
+    localStorage.setItem('id', id);
   }
 }
