@@ -1,0 +1,11 @@
+
+<div>
+<div *ngIf="!state.isLoggedIn; else elseBlock">
+
+    <label> Username: <input type="text" [formControl]="username"/> </label>
+    <label> Password: <input type="password" [formControl]="pwd"/> </label>
+    <button (click)="login()">Login</button>
+</div>
+
+<ng-template #elseBlock><button (click)="logoff()">Logoff</button></ng-template>
+</div>
