@@ -7,7 +7,7 @@ import java.util.List;
 
 public class MessageBoard {
     private static int id;
-    private List<ChatMessage> messages;
+    private List<UserPost> messages;
 
     public MessageBoard(){
         this.id = this.id + 1;
@@ -39,16 +39,16 @@ public class MessageBoard {
         LocalDateTime date9 = LocalDateTime.of(2020, month6, 2, 6,12, 45, 45);
         LocalDateTime date10 = LocalDateTime.of(2020, month6, 2, 7,12, 45, 45);
 
-        ChatMessage msg1 = new ChatMessage("Hi Guys are we working on this tonight.", "AJ", date);
-        ChatMessage msg2 = new ChatMessage("Ya I have time this afternoon.", "Ren", date2);
-        ChatMessage msg3 = new ChatMessage("Same here.", "Dim", date3);
-        ChatMessage msg4 = new ChatMessage("I won't have time. But I'll work on it later.", "Mun", date4);
-        ChatMessage msg5 = new ChatMessage("Okay, great just send me a message.", "AJ", date5);
-        ChatMessage msg6 = new ChatMessage("Guys finals are coming up", "Ren", date6);
-        ChatMessage msg7 = new ChatMessage("Ya gotta study for SOEN 423.", "Dim", date7);
-        ChatMessage msg8 = new ChatMessage("Same, but need to complete my assignments first.", "Mun", date8);
-        ChatMessage msg9 = new ChatMessage("I think I'm done, just need to review one section.", "AJ", date9);
-        ChatMessage msg10 = new ChatMessage("Ayt, sounds good", "Mun", date10);
+        UserPost msg1 = new UserPost("Hi Guys are we working on this tonight.", "AJ", date);
+        UserPost msg2 = new UserPost("Ya I have time this afternoon.", "Ren", date2);
+        UserPost msg3 = new UserPost("Same here.", "Dim", date3);
+        UserPost msg4 = new UserPost("I won't have time. But I'll work on it later.", "Mun", date4);
+        UserPost msg5 = new UserPost("Okay, great just send me a message.", "AJ", date5);
+        UserPost msg6 = new UserPost("Guys finals are coming up", "Ren", date6);
+        UserPost msg7 = new UserPost("Ya gotta study for SOEN 423.", "Dim", date7);
+        UserPost msg8 = new UserPost("Same, but need to complete my assignments first.", "Mun", date8);
+        UserPost msg9 = new UserPost("I think I'm done, just need to review one section.", "AJ", date9);
+        UserPost msg10 = new UserPost("Ayt, sounds good", "Mun", date10);
 
         messages.add(msg1);
         messages.add(msg2);
@@ -63,20 +63,20 @@ public class MessageBoard {
 
     }
 
-    public void addMessage(ChatMessage message){
+    public void addMessage(UserPost message){
         this.messages.add(message);
     }
 
-    public List<ChatMessage> getMessages(LocalDateTime start, LocalDateTime end){
+    public List<UserPost> getMessages(LocalDateTime start, LocalDateTime end){
 
         if(start == null || end == null)
             return messages;
         else if(start.isAfter(end))
             return messages;
 
-        List<ChatMessage> tempList = new ArrayList<>();
+        List<UserPost> tempList = new ArrayList<>();
         if (start.isBefore(end) && !start.equals(end)) {
-            for (ChatMessage msg : this.messages) {
+            for (UserPost msg : this.messages) {
                 if (isWithinRange(msg, start, end))
                     tempList.add(msg);
             }
@@ -89,9 +89,9 @@ public class MessageBoard {
     }
 
     public void clearMessages(LocalDateTime start, LocalDateTime end) throws Exception {
-        List<ChatMessage> tempList = new ArrayList<>();
+        List<UserPost> tempList = new ArrayList<>();
         if (start.isBefore(end) && !start.equals(end)) {
-            for (ChatMessage msg : this.messages) {
+            for (UserPost msg : this.messages) {
                 if (!isWithinRange(msg, start, end))
                     tempList.add(msg);
             }
@@ -102,7 +102,7 @@ public class MessageBoard {
             throw new Exception("Nothing to delete within given dates.");
     }
 
-    public boolean isWithinRange(ChatMessage msg, LocalDateTime start, LocalDateTime end){
+    public boolean isWithinRange(UserPost msg, LocalDateTime start, LocalDateTime end){
         if(msg.getDatetime().isAfter(start) && msg.getDatetime().isBefore(end))
             return true;
         else

@@ -2,20 +2,21 @@ package message.board.entities;
 
 import java.time.LocalDateTime;
 
-public class ChatMessage {
+public class UserPost {
     private String message;
     private String username;
     private LocalDateTime datetime;
     private static int id;
 
-    public ChatMessage(String mes, String user){
+
+    public UserPost(String mes, String user){
         this.id = this.id + 1;
         this.message = mes;
         this.username = user;
         this.datetime = LocalDateTime.now().withSecond(0).withNano(0);
     }
 
-    public ChatMessage(String message, String username, LocalDateTime datetime) {
+    public UserPost(String message, String username, LocalDateTime datetime) {
         this.message = message;
         this.username = username;
         this.datetime = datetime;
