@@ -1,0 +1,17 @@
+
+<li *ngFor="let post of currentPosts">
+   {{post.title}}   {{post.message}} 
+</li>
+
+<br/>
+<br/>
+
+
+<label>Start Date</label>
+<input type="datetime-local" id="start-time" [formControl]="start" min="2020-01-01T00:00"/>
+
+<label>End Date</label>
+<input type="datetime-local" id="end-time" [formControl]="end" min="2020-01-01T00:00"/>
+
+<button (click)="findPostByDateRange()"> Check </button>
+<button (click)="findMyPosts()"> View My Posts </button>
