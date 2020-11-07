@@ -10,6 +10,9 @@ import { GlobalStateService } from './services/global-state/global-state.service
 import { PostListComponent } from './components/post-list/post-list.component';
 import { PostService } from './services/post/post.service';
 
+import { AppRoutingModule } from './app-routing.module';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +23,8 @@ import { PostService } from './services/post/post.service';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [LoginService, GlobalStateService, PostService],
   bootstrap: [AppComponent]
