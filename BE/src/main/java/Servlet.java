@@ -3,8 +3,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 @WebServlet(name = "Servlet")
 public class Servlet extends HttpServlet {
@@ -27,5 +29,27 @@ public class Servlet extends HttpServlet {
             exception.getMessage();
         }
 
+    }
+
+    private boolean authenticateUser(HttpServletRequest request, String email, String password) {
+
+        String filePath = "/WEB-INF/userbase.json";
+        InputStream inputStream = request.getServletContext().getResourceAsStream(filePath);
+
+        JSONTokener jsonTokener = new JSONTokener(inputStream);
+        JSONObject jsonObject = new JSONObject(jsonTokener);
+
+        Boolean result = false;
+        Boolean emailExists = jsonObject.isNull(email);
+
+        if(!emailExists) {
+            JSONObject userDetails = jsonObject.getJSONObject(email);
+
+            String hashedPwd = userDetails.getString("pwd");
+            String md5Hex = DigestUtils.md5Hex(password).toUpperCase();
+            result = md5Hex.equals(hashedPwd);
+        }
+
+        return result;
     }
 }
