@@ -7,6 +7,7 @@ export class GlobalStateService {
 
   isLoggedIn: boolean;
   userId: string;
+  sessionId: string;
 
   constructor() { 
     this.setUp();
@@ -15,6 +16,7 @@ export class GlobalStateService {
   setUp(){
     this.isLoggedIn = localStorage.getItem('loggedIn') != null && localStorage.getItem('loggedIn') === 'true';
     this.userId = localStorage.getItem('id');
+    this.sessionId = localStorage.getItem('ses');
 
   }
 
@@ -26,5 +28,10 @@ export class GlobalStateService {
   setUserId(id: string){
     this.userId = id;
     localStorage.setItem('id', id);
+  }
+
+  setSessionId(session: string){
+    this.sessionId = session;
+    localStorage.setItem('ses', session);
   }
 }
