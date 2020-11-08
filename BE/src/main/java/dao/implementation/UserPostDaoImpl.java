@@ -5,13 +5,15 @@ import database.DatabaseConnection;
 import message.board.entities.UserPost;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserPostDaoImpl implements UserPostDAO{
 
     public static void main(String[] args){
         UserPost post1 = new UserPost("First Post","Ayy sent my first post using my #WAP #ganggang", "ren");
         UserPostDaoImpl dao = new UserPostDaoImpl();
-        dao.insertPost(post1);
+        //dao.insertPost(post1);
         //dao.deletePost(1);
     }
 
@@ -127,5 +129,56 @@ public class UserPostDaoImpl implements UserPostDAO{
             listOfHashtags = listOfHashtags.concat(post.getHashtags().get(i));
 
         return listOfHashtags;
+    }
+
+    public List<UserPost> getPosts(String username, String hashtag, Date startDate, Date endDate) throws SQLException
+    {
+
+        Connection con = DatabaseConnection.getConnection();
+
+        String query = "SELECT * FROM t_post";
+
+        if(username != null)
+            query =  query + " WHERE username = '" + username + "'";
+        if(hashtag != null)
+            query =  query + " WHERE hashtags LIKE %'" + hashtag + "'%";
+        if(startDate != null && endDate != null)
+            query = query + " WHERE date_time BETWEEN" + startDate + " AND " + endDate;
+        query = query + ";";
+
+        try {
+            Statement stmt = con.createStatement();
+
+            ResultSet rs = stmt.executeQuery(query);
+
+            ArrayList<UserPost> posts = new ArrayList<UserPost>();
+
+            while(rs.next())
+            {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                Date dateTime = rs.getDate("date_time");
+                Date lastModified = rs.getDate("last_modified");
+                String message = rs.getString("message");
+                String name = rs.getString("username");
+
+                UserPost userPost = new UserPost(id, title, message, name, dateTime, lastModified);
+
+                posts.add(userPost);
+            }
+
+            return posts;
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if(con != null)
+                con.close();
+        }
+
+        return null;
+
     }
 }

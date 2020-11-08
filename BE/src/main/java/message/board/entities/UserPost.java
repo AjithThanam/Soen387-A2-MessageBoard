@@ -1,7 +1,7 @@
 package message.board.entities;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class UserPost {
@@ -9,21 +9,31 @@ public class UserPost {
     private String title;
     private String message;
     private String username;
-    private LocalDateTime dateTime;
-    private LocalDateTime lastModified;
+    private Date dateTime;
+    private Date lastModified;
     private List<String> hashtags;
 
     public UserPost(String title, String mes, String user){
         this.title = title;
         this.message = mes;
         this.username = user;
-        this.dateTime = LocalDateTime.now();
+        this.dateTime = new Date();
         this.lastModified = this.dateTime;
         retrieveHastags(mes);
     }
 
+    public UserPost(int postId, String title, String message, String username, Date dateTime, Date lastModified) {
+        this.postId = postId;
+        this.title = title;
+        this.message = message;
+        this.username = username;
+        this.dateTime = dateTime;
+        this.lastModified = lastModified;
+        retrieveHastags(message);
+    }
+
     //This constructor was made to add mock data, may not be needed later on
-    public UserPost(String message, String username, LocalDateTime dateTime) {
+    public UserPost(String message, String username, Date dateTime) {
         this.message = message;
         this.username = username;
         this.dateTime = dateTime;
@@ -61,11 +71,11 @@ public class UserPost {
         this.username = username;
     }
 
-    public LocalDateTime getLastModified() {
+    public Date getLastModified() {
         return lastModified;
     }
 
-    public void setLastModified(LocalDateTime lastModified) {
+    public void setLastModified(Date lastModified) {
         this.lastModified = lastModified;
     }
 
@@ -73,11 +83,11 @@ public class UserPost {
         return hashtags;
     }
 
-    public LocalDateTime getDateTime() {
+    public Date getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
 

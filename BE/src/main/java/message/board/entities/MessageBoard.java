@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MessageBoard {
-    private static int id;
+ /*   private static int id;
     private List<UserPost> messages;
 
     public MessageBoard(){
@@ -107,5 +107,5 @@ public class MessageBoard {
             return true;
         else
             return false;
-    }
+    }*/
 }
