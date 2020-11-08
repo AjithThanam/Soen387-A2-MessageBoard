@@ -11,13 +11,17 @@ import { PostListComponent } from './components/post-list/post-list.component';
 import { PostService } from './services/post/post.service';
 
 import { AppRoutingModule } from './app-routing.module';
+import { PostDetailsComponent } from './components/post-details/post-details.component';
+import { PostCreateComponent } from './components/post-create/post-create.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    PostListComponent
+    PostListComponent,
+    PostDetailsComponent,
+    PostCreateComponent
   ],
   imports: [
     BrowserModule,

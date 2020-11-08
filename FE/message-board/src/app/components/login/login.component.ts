@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-
 import { LoginService } from '../../services/login/login.service'; 
 import { GlobalStateService } from '../../services/global-state/global-state.service';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,20 +15,38 @@ export class LoginComponent implements OnInit {
   pwd = new FormControl();
 
   constructor(private loginService: LoginService,
-              public state: GlobalStateService) { 
+              public state: GlobalStateService,
+              private router : Router) { 
   }
 
   ngOnInit(): void {
-    alert("IS Logged in " + this.state.isLoggedIn);
+    if(this.state.isLoggedIn){
+      this.redirectToMain();
+    }
   }
 
   login(){
-    let result: boolean = this.loginService.login(this.username.value, this.pwd.value);
-    this.state.setLoggedIn(result);
+    let result: any = this.loginService.login(this.username.value, this.pwd.value).subscribe(
+      res => {
+        if(res.success === "true"){
+          let userId = res.data.userId;
+          let sessionId = res.data.sessionId;
+
+          this.state.setLoggedIn(true);
+          this.state.setSessionId(sessionId);
+          this.state.setUserId(userId);
+          this.redirectToMain();
+        }
+        alert("Invalid");
+      });
   }
 
   logoff(){
     this.state.setLoggedIn(false);
+    this.router.navigate(['/login']);
   }
 
+  redirectToMain(){
+    this.router.navigate(['/home']);
+  }
 }

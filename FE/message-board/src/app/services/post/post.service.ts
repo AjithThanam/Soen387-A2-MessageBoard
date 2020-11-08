@@ -54,4 +54,9 @@ export class PostService {
   formatDateStr(date: Date){
     return "";
   }
+
+
+  createPost(){
+
+  }
 }
