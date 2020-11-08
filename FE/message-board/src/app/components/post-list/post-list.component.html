@@ -6,7 +6,7 @@
 
    <div>
       <input size="60" type="text" placeholder="Search"/>
-      <button>New post</button>
+      <button type="button" class="btn btn-secondary">New post</button>
    </div>
 
    <div>
@@ -17,8 +17,8 @@
    <div>
       <label>End Date</label>
       <input type="datetime-local" id="end-time" [formControl]="end" min="2020-01-01T00:00"/>
-      <button (click)="findPostByDateRange()"> Filter </button>
-      <button (click)="findMyPosts()"> View My Posts </button>
+      <button (click)="findPostByDateRange()"type="button" class="btn btn-secondary"> Filter </button>
+      <button (click)="findMyPosts()" type="button" class="btn btn-secondary"> View My Posts </button>
    </div>
 
    <div>      
@@ -29,15 +29,88 @@
 </nav>
 
 
-<br/>
 
 
 <div class="card" *ngFor="let post of currentPosts">
-   {{post.title}}   {{post.message}} 
+   <h6>
+      {{post.title}} 
+      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+      <i class="fa fa-trash-o" aria-hidden="true"></i>
+
+   </h6>   
+   <p>
+      {{post.message}}
+   </p>      
+   <p>
+      asdhjhga
+      asd asd 
+      <br/><br/>
+      <br/><br/>
+      <br/><br/>
+      asd 
+      asd
+   </p>
 </div>
 
-<br/>
-<br/>
+<div class="card" *ngFor="let post of currentPosts">
+   <h6>
+      {{post.title}}
+   </h6>   
+   <p>
+      {{post.message}}
+   </p> 
+</div>
 
 
 
+
+
+
+
+
+
+
+
+<div class="card" *ngFor="let post of currentPosts">
+   <h6>
+      {{post.title}}
+   </h6>   
+   <p>
+      {{post.message}}
+   </p> 
+</div>
+<div class="card" *ngFor="let post of currentPosts">
+   <h6>
+      {{post.title}}
+   </h6>   
+   <p>
+      {{post.message}}
+   </p> 
+</div>
+
+<div class="card" *ngFor="let post of currentPosts">
+   <h6>
+      {{post.title}}
+   </h6>   
+   <p>
+      {{post.message}}
+   </p> 
+</div>
+
+<div class="card" *ngFor="let post of currentPosts">
+   <h6>
+      {{post.title}}
+   </h6>   
+   <p>
+      {{post.message}}
+   </p> 
+</div>
+
+<div class="card" *ngFor="let post of currentPosts">
+   <h6>
+      {{post.title}}
+   </h6>   
+   <p>
+      {{post.message}}
+   </p> 
+</div>
