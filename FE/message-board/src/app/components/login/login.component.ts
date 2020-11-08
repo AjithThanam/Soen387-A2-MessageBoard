@@ -20,13 +20,14 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.state.isLoggedIn){
+      this.redirectToMain();
+    }
   }
 
   login(){
     let result: any = this.loginService.login(this.username.value, this.pwd.value).subscribe(
       res => {
-        console.log({res});
-
         if(res.success === "true"){
           let userId = res.data.userId;
           let sessionId = res.data.sessionId;
@@ -34,15 +35,18 @@ export class LoginComponent implements OnInit {
           this.state.setLoggedIn(true);
           this.state.setSessionId(sessionId);
           this.state.setUserId(userId);
-          this.router.navigate(['/home']);
+          this.redirectToMain();
         }
-
-        //this.state.setLoggedIn(result);
+        alert("Invalid");
       });
   }
 
   logoff(){
     this.state.setLoggedIn(false);
+    this.router.navigate(['/login']);
   }
 
+  redirectToMain(){
+    this.router.navigate(['/home']);
+  }
 }
