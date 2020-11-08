@@ -11,10 +11,10 @@ public class UserPostDaoImpl implements UserPostDAO{
     public static void main(String[] args){
         UserPost post1 = new UserPost("First Post","Ayy sent my first post using my #WAP #ganggang", "ren");
         UserPostDaoImpl dao = new UserPostDaoImpl();
-        //dao.insertPost(post1);
-        dao.deletePost(1);
+        dao.insertPost(post1);
+        //dao.deletePost(1);
     }
-    
+
     @Override
     public boolean insertPost(UserPost post) {
         Connection connection = DatabaseConnection.getConnection();
@@ -26,8 +26,8 @@ public class UserPostDaoImpl implements UserPostDAO{
             ps.setString(1,post.getTitle());
             ps.setString(2,post.getMessage());
             ps.setString(3,post.getUsername());
-            ps.setDate(4,java.sql.Date.valueOf("2020-10-10"));
-            ps.setDate(5,java.sql.Date.valueOf("2020-10-10"));
+            ps.setDate(4,java.sql.Date.valueOf(post.getDateTime().toString().substring(0,10)));
+            ps.setDate(5,java.sql.Date.valueOf(post.getLastModified().toString().substring(0,10)));
             ps.setString(6,retrieveHashtagList(post));
 
             int i = ps.executeUpdate();
@@ -68,8 +68,8 @@ public class UserPostDaoImpl implements UserPostDAO{
             ps.setString(1,post.getTitle());
             ps.setString(2, post.getMessage());
             ps.setString(3,post.getUsername());
-            ps.setDate(4,java.sql.Date.valueOf(post.getDateTime().toString()));
-            ps.setDate(5,java.sql.Date.valueOf(post.getLastModified().toString()));
+            ps.setDate(4,java.sql.Date.valueOf(post.getDateTime().toString().substring(0,10)));
+            ps.setDate(5,java.sql.Date.valueOf(post.getLastModified().toString().substring(0,10)));
             ps.setString(6,retrieveHashtagList(post));
             ps.setInt(7,post.getPostId());
 

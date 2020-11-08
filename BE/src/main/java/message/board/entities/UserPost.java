@@ -17,11 +17,9 @@ public class UserPost {
         this.title = title;
         this.message = mes;
         this.username = user;
-        this.dateTime = LocalDateTime.now().withSecond(0).withNano(0);
+        this.dateTime = LocalDateTime.now();
+        this.lastModified = this.dateTime;
         retrieveHastags(mes);
-
-        for(int i = 0; i < hashtags.size(); i++)
-            System.out.println(hashtags.get(i));
     }
 
     //This constructor was made to add mock data, may not be needed later on
