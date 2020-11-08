@@ -1,7 +1,7 @@
 package message.board.entities;
 
 public class FileAttachment {
-    private static int id;
+    private int id;
     private String filename;
     private String filesize;
     private String mediaType;
@@ -9,12 +9,15 @@ public class FileAttachment {
     private int postId;
 
     public FileAttachment(String filename, String filesize, String mediaType, byte[] media, int postId) {
-        this.id += 1;
         this.filename = filename;
         this.filesize = filesize;
         this.mediaType = mediaType;
         this.media = media;
         this.postId = postId;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {

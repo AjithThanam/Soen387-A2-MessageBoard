@@ -1,6 +1,7 @@
 package message.board.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserPost {
@@ -12,11 +13,15 @@ public class UserPost {
     private LocalDateTime lastModified;
     private List<String> hashtags;
 
-    public UserPost(String mes, String user){
+    public UserPost(String title, String mes, String user){
+        this.title = title;
         this.message = mes;
         this.username = user;
         this.dateTime = LocalDateTime.now().withSecond(0).withNano(0);
         retrieveHastags(mes);
+
+        for(int i = 0; i < hashtags.size(); i++)
+            System.out.println(hashtags.get(i));
     }
 
     //This constructor was made to add mock data, may not be needed later on
@@ -81,10 +86,12 @@ public class UserPost {
     private void retrieveHastags(String message){
         if(message.contains("#")){
             String [] postWords = message.split(" ");
+            List<String> templist = new ArrayList<>();
             for(int i = 0; i < postWords.length; i++){
                 if(postWords[i].contains("#"))
-                    hashtags.add(postWords[i]);
+                    templist.add(postWords[i]);
             }
+            hashtags = templist;
         }
     }
 

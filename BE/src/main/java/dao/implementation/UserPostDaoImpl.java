@@ -8,22 +8,26 @@ import java.sql.*;
 
 public class UserPostDaoImpl implements UserPostDAO{
 
-    //replace the ?, still not sure what it is...
+    public static void main(String[] args){
+        UserPost post1 = new UserPost("First Post","Ayy sent my first post using my #WAP #ganggang", "ren");
+        UserPostDaoImpl dao = new UserPostDaoImpl();
+        //dao.insertPost(post1);
+        dao.deletePost(1);
+    }
+    
     @Override
     public boolean insertPost(UserPost post) {
         Connection connection = DatabaseConnection.getConnection();
 
-
         try {
-            String query = "INSERT INTO post_details (title, message, username, date_created, last_modified, hashtags) VALUES (?, ?, ?, ?, ?, ?)";
-            // Passing Statement.RETURN_GENERATED_KEYS to make getGeneratedKeys() work
+            String query = "INSERT INTO t_post (title, message, username, date_time, last_modified, hashtags) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1,post.getTitle());
             ps.setString(2,post.getMessage());
             ps.setString(3,post.getUsername());
-            ps.setDate(4,java.sql.Date.valueOf(post.getDateTime().toString()));
-            ps.setDate(5,java.sql.Date.valueOf(post.getLastModified().toString()));
+            ps.setDate(4,java.sql.Date.valueOf("2020-10-10"));
+            ps.setDate(5,java.sql.Date.valueOf("2020-10-10"));
             ps.setString(6,retrieveHashtagList(post));
 
             int i = ps.executeUpdate();
@@ -54,13 +58,12 @@ public class UserPostDaoImpl implements UserPostDAO{
         return false;
     }
 
-    //replace the ?, still not sure what it is...
     @Override
     public boolean updatePost(UserPost post) {
         Connection connection = DatabaseConnection.getConnection();
 
         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE post_details SET title=?, message=?, username=?, date_created=?, last_modified=?, hashtags=? WHERE user_id=?");
+            PreparedStatement ps = connection.prepareStatement("UPDATE t_post SET title=?, message=?, username=?, date_time=?, last_modified=?, hashtags=? WHERE user_id=?");
 
             ps.setString(1,post.getTitle());
             ps.setString(2, post.getMessage());
@@ -68,6 +71,7 @@ public class UserPostDaoImpl implements UserPostDAO{
             ps.setDate(4,java.sql.Date.valueOf(post.getDateTime().toString()));
             ps.setDate(5,java.sql.Date.valueOf(post.getLastModified().toString()));
             ps.setString(6,retrieveHashtagList(post));
+            ps.setInt(7,post.getPostId());
 
             int i = ps.executeUpdate();
 
@@ -94,7 +98,7 @@ public class UserPostDaoImpl implements UserPostDAO{
 
         try {
             Statement stmt = connection.createStatement();
-            int i = stmt.executeUpdate("DELETE FROM post_details WHERE post_id=" + id);
+            int i = stmt.executeUpdate("DELETE FROM t_post WHERE id=" + id);
 
             if(i == 1) {
                 return true;
@@ -113,8 +117,8 @@ public class UserPostDaoImpl implements UserPostDAO{
         return false;
     }
 
-    public String retrieveHashtagList(UserPost post){
-        String listOfHashtags = null;
+    public static String retrieveHashtagList(UserPost post){
+        String listOfHashtags = "";
 
         if(post.getHashtags().size() == 0)
             return null;
