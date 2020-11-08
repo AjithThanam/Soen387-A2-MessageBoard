@@ -1,29 +1,45 @@
 package message.board.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class UserPost {
+    private int postId;
+    private String title;
     private String message;
     private String username;
-    private LocalDateTime datetime;
-    private static int id;
-
+    private LocalDateTime dateTime;
+    private LocalDateTime lastModified;
+    private List<String> hashtags;
 
     public UserPost(String mes, String user){
-        this.id = this.id + 1;
         this.message = mes;
         this.username = user;
-        this.datetime = LocalDateTime.now().withSecond(0).withNano(0);
+        this.dateTime = LocalDateTime.now().withSecond(0).withNano(0);
+        retrieveHastags(mes);
     }
 
-    public UserPost(String message, String username, LocalDateTime datetime) {
+    //This constructor was made to add mock data, may not be needed later on
+    public UserPost(String message, String username, LocalDateTime dateTime) {
         this.message = message;
         this.username = username;
-        this.datetime = datetime;
+        this.dateTime = dateTime;
     }
 
-    public int getId(){
-        return id;
+    public int getPostId() {
+        return postId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getMessage() {
@@ -42,12 +58,34 @@ public class UserPost {
         this.username = username;
     }
 
-    public LocalDateTime getDatetime() {
-        return datetime;
+    public LocalDateTime getLastModified() {
+        return lastModified;
     }
 
-    public void setDatetime(LocalDateTime datetime) {
-        this.datetime = datetime;
+    public void setLastModified(LocalDateTime lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    public List<String> getHashtags() {
+        return hashtags;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    private void retrieveHastags(String message){
+        if(message.contains("#")){
+            String [] postWords = message.split(" ");
+            for(int i = 0; i < postWords.length; i++){
+                if(postWords[i].contains("#"))
+                    hashtags.add(postWords[i]);
+            }
+        }
     }
 
     @Override
@@ -55,7 +93,7 @@ public class UserPost {
         return "ChatMessage{" +
                 "message='" + message + '\'' +
                 ", username='" + username + '\'' +
-                ", datetime=" + datetime +
+                ", dateTime=" + dateTime +
                 '}';
     }
 }

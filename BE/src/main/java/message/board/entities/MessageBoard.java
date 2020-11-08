@@ -103,7 +103,7 @@ public class MessageBoard {
     }
 
     public boolean isWithinRange(UserPost msg, LocalDateTime start, LocalDateTime end){
-        if(msg.getDatetime().isAfter(start) && msg.getDatetime().isBefore(end))
+        if(msg.getDateTime().isAfter(start) && msg.getDateTime().isBefore(end))
             return true;
         else
             return false;
