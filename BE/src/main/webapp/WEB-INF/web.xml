@@ -11,6 +11,16 @@
         <servlet-name>Servlet</servlet-name>
         <url-pattern>/MessageBoardServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AttachmentServlet</servlet-name>
+        <servlet-class>servlets.AttachmentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AttachmentServlet</servlet-name>
+        <url-pattern>/attachments</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
