@@ -6,6 +6,7 @@ import message.board.entities.UserPost;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class UserPostDaoImpl implements UserPostDAO{
@@ -15,6 +16,12 @@ public class UserPostDaoImpl implements UserPostDAO{
         UserPostDaoImpl dao = new UserPostDaoImpl();
         //dao.insertPost(post1);
         //dao.deletePost(1);
+        /*
+        try {
+            List<UserPost> up = dao.getPosts("test",null, null, null);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }*/
     }
 
     @Override
@@ -131,20 +138,34 @@ public class UserPostDaoImpl implements UserPostDAO{
         return listOfHashtags;
     }
 
+    @Override
     public List<UserPost> getPosts(String username, String hashtag, Date startDate, Date endDate) throws SQLException
     {
 
         Connection con = DatabaseConnection.getConnection();
 
         String query = "SELECT * FROM t_post";
+        Boolean dateChecked = false;
+        Boolean hashtagChecked = false;
 
-        if(username != null)
-            query =  query + " WHERE username = '" + username + "'";
-        if(hashtag != null)
-            query =  query + " WHERE hashtags LIKE %'" + hashtag + "'%";
-        if(startDate != null && endDate != null)
-            query = query + " WHERE date_time BETWEEN" + startDate + " AND " + endDate;
-        query = query + ";";
+        if(username != null) {
+            query = query + " WHERE username = '" + username + "'";
+        }
+        else if(startDate != null && endDate != null) {
+            query = query + " WHERE date_time BETWEEN '" + startDate + "' AND '" + endDate + "'";
+            dateChecked = true;
+        }
+        else if(hashtag != null) {
+            query = query + " WHERE hashtags = '" + hashtag + "'";
+            hashtagChecked = true;
+        }
+
+        if(!dateChecked && startDate != null && endDate != null)
+            query = query + " AND date_time BETWEEN '" + startDate + "' AND '" + endDate + "'";
+
+        if(!hashtagChecked && hashtag != null)
+            query =  query + " AND hashtags = '" + hashtag + "'";
+        query = query + " ORDER BY date_time DESC;";
 
         try {
             Statement stmt = con.createStatement();
