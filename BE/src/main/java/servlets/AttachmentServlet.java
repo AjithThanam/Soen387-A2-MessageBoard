@@ -24,7 +24,14 @@ public class AttachmentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean success = false;
 
+
         HashMap<String, Object> payload = getPayload(request);
+
+        int i =0;
+
+        payload.entrySet().forEach(entry->{
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        });
 
         sendBackResponse(response, success);
     }
@@ -72,7 +79,13 @@ public class AttachmentServlet extends HttpServlet {
     }
 
 
-    private void sendBackResponse(HttpServletResponse response, boolean success){
+    private void sendBackResponse(HttpServletResponse response, boolean success) throws IOException {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Content-Type", "application/json");
+
+        String content = "{ \"success\": \"true\"}";
+        PrintWriter out = response.getWriter();
+        out.println(content);
 
     }
 
