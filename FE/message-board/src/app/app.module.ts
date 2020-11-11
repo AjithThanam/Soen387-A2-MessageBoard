@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { PostDetailsComponent } from './components/post-details/post-details.component';
 import { PostCreateComponent } from './components/post-create/post-create.component';
 
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { PostCreateComponent } from './components/post-create/post-create.compon
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxDropzoneModule
   ],
   providers: [LoginService, GlobalStateService, PostService],
   bootstrap: [AppComponent]
