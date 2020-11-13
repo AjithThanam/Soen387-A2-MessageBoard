@@ -129,7 +129,7 @@ public class UserPostDaoImpl implements UserPostDAO{
     public static String retrieveHashtagList(UserPost post){
         String listOfHashtags = "";
 
-        if(post.getHashtags().size() == 0)
+        if(post.getHashtags() == null || post.getHashtags().size() == 0)
             return null;
 
         for(int i = 0; i < post.getHashtags().size(); i++)

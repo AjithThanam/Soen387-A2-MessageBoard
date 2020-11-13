@@ -73,4 +73,22 @@ public class UserPostServlet extends HttpServlet {
         PrintWriter writer = response.getWriter();
         writer.append(jsonResponse.toString());
     }
+
+    @Override
+    public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
+    {
+        String stringId = request.getParameter("id");
+        int id = Integer.parseInt(stringId);
+
+        boolean databaseResponse = userPostDao.deletePost(id);
+        JSONObject jsonResponse = new JSONObject();
+        jsonResponse.put("success", databaseResponse);
+
+        response.setContentType("application/json");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setCharacterEncoding("UTF-8");
+
+        PrintWriter writer = response.getWriter();
+        writer.append(jsonResponse.toString());
+    }
 }
