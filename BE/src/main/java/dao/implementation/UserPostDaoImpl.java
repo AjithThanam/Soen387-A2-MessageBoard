@@ -156,7 +156,7 @@ public class UserPostDaoImpl implements UserPostDAO{
             dateChecked = true;
         }
         else if(hashtag != null) {
-            query = query + " WHERE hashtags = '" + hashtag + "'";
+            query = query + " WHERE hashtags LIKE '%" + hashtag + "%'";
             hashtagChecked = true;
         }
 
@@ -165,7 +165,7 @@ public class UserPostDaoImpl implements UserPostDAO{
 
         if(!hashtagChecked && hashtag != null)
             query =  query + " AND hashtags = '" + hashtag + "'";
-        query = query + " ORDER BY date_time DESC;";
+        query = query + " ORDER BY last_modified DESC;";
 
         try {
             Statement stmt = con.createStatement();
