@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BE/MessageBoard.iml" filepath="$PROJECT_DIR$/BE/MessageBoard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Soen387-A2-MessageBoard.iml" filepath="$PROJECT_DIR$/.idea/Soen387-A2-MessageBoard.iml" />
+    </modules>
+  </component>
+</project>

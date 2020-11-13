@@ -1,7 +1,9 @@
 package message.board.entities;
 
 import java.util.ArrayList;
-import java.util.Date;
+
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 public class UserPost {
@@ -17,7 +19,8 @@ public class UserPost {
         this.title = title;
         this.message = mes;
         this.username = user;
-        this.dateTime = new Date();
+        this.dateTime = new Date(Calendar.getInstance().getTime().getTime());
+        System.out.print(this.dateTime);
         this.lastModified = this.dateTime;
         retrieveHastags(mes);
     }
