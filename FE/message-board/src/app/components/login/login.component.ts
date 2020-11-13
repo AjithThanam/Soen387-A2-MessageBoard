@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     let result: any = this.loginService.login(this.username.value, this.pwd.value).subscribe(
       res => {
         if(res.success === "true"){
-          let userId = res.data.userId;
+          let userId = res.data.userID;
           let sessionId = res.data.sessionId;
 
           this.state.setLoggedIn(true);

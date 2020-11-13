@@ -5,8 +5,8 @@
    </div>
 
    <div>
-      <input size="60" type="text" placeholder="Search"/>
-      <button type="button" class="btn btn-secondary">New post</button>
+      <input size="60" type="text"  [formControl]="hashTags"/>
+      <button (click)="findByHashTag()">Find By Tag</button>
    </div>
 
    <div>
@@ -33,6 +33,7 @@
 <a href="/assets/pages/post-create.html"> Create Post </a>
 
 <div class="card" *ngFor="let post of currentPosts">
+<<<<<<< HEAD
    <h6>
       {{post.title}} 
       <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -60,6 +61,10 @@
    <p>
       {{post.message}}
    </p> 
+=======
+   {{post.title}}   {{post.message}}  {{post.tags}} 
+   <button onclick="deletePost(2)">del post</button>
+>>>>>>> More features.
 </div>
 
 
