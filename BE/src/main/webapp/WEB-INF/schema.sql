@@ -9,7 +9,7 @@ CREATE TABLE t_Post(
     message varchar(255), 
     hashtags varchar(255),
     username varchar(255)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE t_Attachment(
 
@@ -20,4 +20,4 @@ CREATE TABLE t_Attachment(
     media LONGBLOB NOT NULL,
     post_id int,
     FOREIGN KEY (post_id) REFERENCES t_Post(id) ON DELETE CASCADE
-);
+)ENGINE=InnoDB;

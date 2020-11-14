@@ -149,4 +149,39 @@ public class FileAttachementDaoImpl implements FileAttachmentDAO {
 
         return false;
     }
+
+    @Override
+    public FileAttachment getAttachment (int postID){
+        Connection connection = DatabaseConnection.getConnection();
+
+        String query = "SELECT * FROM t_attachment WHERE post_id = ? ";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setInt(1, postID);
+
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()) {
+                int id = rs.getInt("id");
+                String filename = rs.getString("file_name");
+                String filesize = rs.getString("file_size");
+                String mediaType = rs.getString("media_type");
+                byte[] media = rs.getBytes("media");
+
+                FileAttachment fileAttachment = new FileAttachment(id, filename, filesize, mediaType, media, postID);
+
+                return fileAttachment;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 }

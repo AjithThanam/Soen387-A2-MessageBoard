@@ -18,6 +18,15 @@ public class FileAttachment {
         this.postId = postId;
     }
 
+    public FileAttachment(int id, String filename, String filesize, String mediaType, byte[] media, int postId) {
+        this.id = id;
+        this.filename = filename;
+        this.filesize = filesize;
+        this.mediaType = mediaType;
+        this.media = media;
+        this.postId = postId;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

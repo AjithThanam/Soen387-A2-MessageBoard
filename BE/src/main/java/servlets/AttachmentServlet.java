@@ -16,19 +16,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.sql.Date;
 import java.util.*;
 
 public class AttachmentServlet extends HttpServlet {
 
+    UserPostDaoImpl userPostDao;
+    FileAttachementDaoImpl fileAttachmentDao;
+
+    @Override
+    public void init() {
+        userPostDao = new UserPostDaoImpl();
+        fileAttachmentDao = new FileAttachementDaoImpl();
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HashMap<String, Object> payload = getPayload(request);
-        UserPostDaoImpl userPostDao = new UserPostDaoImpl();
-        FileAttachementDaoImpl fileAttachmentDao = new FileAttachementDaoImpl();
 
         boolean dbResponse;
         //If no ID is given assume it is a new post, if ID is given update existing post.
@@ -134,19 +139,28 @@ public class AttachmentServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        String stringId = request.getParameter("postID");
+        int id = Integer.parseInt(stringId);
 
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>servlets.Servlet HelloWorldServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>servlets.Servlet HelloWorldServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } catch (IOException exception){
-            exception.getMessage();
+        FileAttachment fileAttachment = fileAttachmentDao.getAttachment(id);
+
+        if(fileAttachment != null){
+            response.setContentType("application/octet-stream");
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Content-disposition", "attachment; filename=" + fileAttachment.getFilename());
+
+            InputStream inputStream = new ByteArrayInputStream(fileAttachment.getMedia());
+            OutputStream outStream = response.getOutputStream();
+
+            byte[] buffer = new byte[4096];
+            int bytesRead = -1;
+
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outStream.write(buffer, 0, bytesRead);
+            }
+
+            inputStream.close();
+            outStream.close();
         }
     }
 }
