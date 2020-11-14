@@ -54,8 +54,6 @@ export class PostService {
       url = url + andText + "hashtag=" + encodeURIComponent(hashTags);  
     }
 
-    alert(url);
-
     
     return this.http.get(url, {responseType: 'json'}).pipe(
       switchMap((resp: any) => {
@@ -93,9 +91,7 @@ export class PostService {
   }
 
   deletePost(id: string){
-    debugger;
     let url = this.baseURL;
-    alert(url);
     const payload = new HttpParams().set('id', id);
     let httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
