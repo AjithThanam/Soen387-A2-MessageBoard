@@ -49,4 +49,8 @@ export class LoginComponent implements OnInit {
   redirectToMain(){
     this.router.navigate(['/home']);
   }
+
+  unsupportedOperation(){
+    alert("Unsupported Operation");
+  }
 }

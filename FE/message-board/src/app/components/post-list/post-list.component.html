@@ -21,6 +21,7 @@
       <button (click)="findMyPosts()" type="button" class="btn btn-secondary"> View My Posts </button>
    </div>
 
+
    <div>      
       <app-login></app-login>
    </div>
@@ -33,11 +34,16 @@
 <a href="/assets/pages/post-create.html"> Create Post </a>
 
 <div class="card" *ngFor="let post of currentPosts">
-<<<<<<< HEAD
    <h6>
       {{post.title}} 
-      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-      <i class="fa fa-trash-o" aria-hidden="true"></i>
+
+      <div>
+            <div *ngIf="isMyPost(post)">
+                  <i (click)="setEditPost(post)" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  <i (click)="deletePost(post.id)" class="fa fa-trash-o" aria-hidden="true"></i>
+            </div>
+            <i (click)="downloadAttachments(post.id)" class="fa fa-download" aria-hidden="true"></i>
+      </div>
 
    </h6>   
    <p>
@@ -52,71 +58,4 @@
       asd 
       asd
    </p>
-</div>
-
-<div class="card" *ngFor="let post of currentPosts">
-   <h6>
-      {{post.title}}
-   </h6>   
-   <p>
-      {{post.message}}
-   </p> 
-=======
-   {{post.title}}   {{post.message}}  {{post.tags}} 
-   <button onclick="deletePost(2)">del post</button>
->>>>>>> More features.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-<div class="card" *ngFor="let post of currentPosts">
-   <h6>
-      {{post.title}}
-   </h6>   
-   <p>
-      {{post.message}}
-   </p> 
-</div>
-<div class="card" *ngFor="let post of currentPosts">
-   <h6>
-      {{post.title}}
-   </h6>   
-   <p>
-      {{post.message}}
-   </p> 
-</div>
-
-<div class="card" *ngFor="let post of currentPosts">
-   <h6>
-      {{post.title}}
-   </h6>   
-   <p>
-      {{post.message}}
-   </p> 
-</div>
-
-<div class="card" *ngFor="let post of currentPosts">
-   <h6>
-      {{post.title}}
-   </h6>   
-   <p>
-      {{post.message}}
-   </p> 
-</div>
-
-<div class="card" *ngFor="let post of currentPosts">
-   <h6>
-      {{post.title}}
-   </h6>   
-   <p>
-      {{post.message}}
-   </p> 
 </div>

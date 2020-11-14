@@ -48,14 +48,12 @@ export class PostService {
       url = url + andText + "hashtag=" + encodeURIComponent(hashTags);  
     }
 
-    alert(url);
+    //alert(url);
 
-    //url = 'http://echo.jsontest.com/key/value/one/two';
-
+    /*
     return this.http.get(url, {responseType: 'json'}).pipe(
-      switchMap(resp => {
-        
-         let postsJSONArr = resp.posts;
+      switchMap((resp: any) => {
+         let postsJSONArr: any = resp.posts;
 
          let posts: Post[] = [];
          for(let i = 0; i < postsJSONArr.length; i++){
@@ -75,11 +73,13 @@ export class PostService {
             }
             p.tags = tagstr;
             posts.push(p);
-         }
+         }  
 
          return of(posts);
       })
     );
+    */
+    return of(this.getMockPost());
   }
 
   formatDateStr(date: any){
@@ -89,6 +89,27 @@ export class PostService {
   deletePost(id: string){
     let url = this.baseURL + "?" + "postId=" + encodeURIComponent(id);
     return this.http.get(url, {responseType: 'json'});
+  }
+
+  getMockPost(): Post[]{
+    let posts = [];
+
+    let p = new Post();
+    p.id = 1;
+    p.message = "MES1";
+    p.title = "Title1";
+    p.userId = "alice@gmail.com"
+
+    let p2 = new Post();
+    p2.id = 2;
+    p2.message = "MES2";
+    p2.title = "Title2";
+    p2.userId = "evan@gmail.com"
+
+    posts.push(p);
+    posts.push(p2);
+
+    return posts;
   }
 
 

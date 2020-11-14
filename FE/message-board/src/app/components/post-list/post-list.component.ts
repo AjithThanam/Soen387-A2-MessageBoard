@@ -50,11 +50,34 @@ export class PostListComponent implements OnInit {
 
   deletePost(id: any){
 
-    alert(id);
+    for(let i = 0; i < this.currentPosts.length; i++){
+      if(this.currentPosts[i].id == id){
+          this.currentPosts.splice(i, 1);
+      }
+    }
     /*
     this.service.deletePost(id).subscribe( res => {
         alert(res);
     });
       */
+  }
+
+  isMyPost(post: Post):boolean{
+    let match = post.userId === this.state.userId;
+    return match;
+  }
+
+  setEditPost(post: Post){
+    debugger;
+    this.state.setEditPost(post);
+    window.location.href = '/assets/pages/post-edit.html';
+  }
+
+  downloadAttachments(postId: any){
+    alert(postId);
+    const postID = encodeURI(postId);
+    var filterUrl = new URL("url");
+    filterUrl.searchParams.append("postID", postID);
+    window.location.href = filterUrl;
   }
 }

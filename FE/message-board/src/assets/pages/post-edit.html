@@ -5,10 +5,17 @@
    </head>
    <body onload="init()">
       <form action="https://105fc4c7fcba.ngrok.io/MessageBoard_war_exploded/attachments" method="post" enctype="multipart/form-data">
+            
+            Title :<input type="text" id="title" name="title"><br/>
+            Message :<input type="text" id="mes" name="message"><br/>
+
+            <h2> Change Attachment </h2>
+            Remove Attachment: <input type="checkbox" name="removeAttach"><br/>
             Select File to Upload:<input type="file" name="fileName"><br />
-            Title :<input type="text" name="title"><br/>
-            Message :<input type="text" name="message"><br/>
+
             <input type="hidden" id="userId" name="userID"><br/>
+            <input type="hidden" id="postId" name="postID"><br/>
+
             <input type="submit" value="Upload">
       </form>
 
@@ -19,9 +26,13 @@
                   if(localStorage.getItem('loggedIn') !== 'true'){
                         window.location.href = '/login';
                   }
-
+                  var current_post = JSON.parse(localStorage.getItem('edit-post'));
                   document.getElementById("userId").value = localStorage.getItem('id');
+                  document.getElementById("postId").value = current_post.id;
+                  document.getElementById("title").value = current_post.title;
+                  document.getElementById("mes").value = current_post.message;
             }
-      </script>
+</script>
+
    </body>
 </html>

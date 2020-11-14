@@ -34,4 +34,9 @@ export class GlobalStateService {
     this.sessionId = session;
     localStorage.setItem('ses', session);
   }
+
+  setEditPost(post: any){
+    let postContent = JSON.stringify(post);
+    localStorage.setItem("edit-post", postContent); 
+  }
 }
