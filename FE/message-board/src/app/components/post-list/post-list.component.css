@@ -32,6 +32,10 @@ select, option{
     font-size: 22px;
 }
 
+.iconsPosition{
+    float: right;
+}
+
 .createPost{
     padding-top: 10px;
     margin-left: 94%;
