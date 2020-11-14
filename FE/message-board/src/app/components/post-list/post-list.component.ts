@@ -5,6 +5,8 @@ import { PostService } from '../../services/post/post.service';
 import { FormControl } from '@angular/forms';
 import { GlobalStateService } from '../../services/global-state/global-state.service';
 
+import { environment } from '../../config/environment';
+
 
 @Component({
   selector: 'app-post-list',
@@ -75,10 +77,10 @@ export class PostListComponent implements OnInit {
   }
 
   downloadAttachments(postId: any){
-    alert(postId);
-    const postID = encodeURI(postId);
-    var filterUrl = new URL("url");
-    filterUrl.searchParams.append("postID", postID);
-    //window.location.href = filterUrl;
+    let url = environment["domain"] + "/MessageBoard_war_exploded/attachments";
+    alert(url);
+    let filterUrl = new URL(url);
+    filterUrl.searchParams.append("postID", postId);
+    window.location.href = filterUrl as any;
   }
 }
