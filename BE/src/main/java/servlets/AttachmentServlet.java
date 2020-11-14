@@ -49,9 +49,7 @@ public class AttachmentServlet extends HttpServlet {
                     (String) payload.get("userID"), null, new Date(Calendar.getInstance().getTime().getTime()));
             dbResponse = userPostDao.updatePost(userPost);
 
-            System.out.println((String) payload.get("removeAttach"));
-
-            if((Boolean) payload.get("removeAttach")) {
+            if(payload.get("removeAttach") != null) {
                 dbResponse = fileAttachmentDao.deleteAttachment(userPost.getPostId());
             }else{
                 if(((List)payload.get("files")).size() != 0 && dbResponse){
@@ -86,6 +84,8 @@ public class AttachmentServlet extends HttpServlet {
                 if (formItems != null && formItems.size() > 0) {
                     for (FileItem item : formItems) {
                         if (!item.isFormField()) {
+                            if(item.getSize() <= 0)
+                                continue;
                             String fileName = new File(item.getName()).getName();
 
                             //Use for testing
