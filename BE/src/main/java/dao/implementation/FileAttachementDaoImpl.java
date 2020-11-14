@@ -131,7 +131,7 @@ public class FileAttachementDaoImpl implements FileAttachmentDAO {
 
         try {
             Statement stmt = connection.createStatement();
-            int i = stmt.executeUpdate("DELETE FROM t_attachment WHERE id=" + id);
+            int i = stmt.executeUpdate("DELETE FROM t_attachment WHERE post_id=" + id);
 
             if(i == 1) {
                 return true;

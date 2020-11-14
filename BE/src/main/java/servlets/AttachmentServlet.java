@@ -36,14 +36,10 @@ public class AttachmentServlet extends HttpServlet {
             UserPost up = new UserPost((String) payload.get("title"), (String) payload.get("message"), (String) payload.get("userID"));
             dbResponse = userPostDao.insertPost(up);
 
-            if(((List)payload.get("files")).size() != 0){
-                File file = (File)((List)payload.get("files")).get(0);
-                String filePath = file.getAbsolutePath();
-                String fileSize = FileAttachementDaoImpl.getFileSize(file);
-                String mediaType = FileAttachementDaoImpl.getMediaType(filePath);
-                byte[] byteArray = FileAttachementDaoImpl.getByteArr(file);
-                FileAttachment attachment = new FileAttachment(file.getName(), fileSize, mediaType, byteArray, up.getPostId());
-                fileAttachmentDao.insertAttachment(attachment);
+            if(((List)payload.get("files")).size() != 0 && dbResponse){
+                FileAttachment fileAttachment = (FileAttachment) ((List)payload.get("files")).get(0);
+                fileAttachment.setPostId(up.getPostId());
+                dbResponse = fileAttachmentDao.insertAttachment(fileAttachment);
             }
 
         }else{
@@ -52,6 +48,18 @@ public class AttachmentServlet extends HttpServlet {
             UserPost userPost = new UserPost(id, (String) payload.get("title"), (String) payload.get("message"),
                     (String) payload.get("userID"), null, new Date(Calendar.getInstance().getTime().getTime()));
             dbResponse = userPostDao.updatePost(userPost);
+
+            System.out.println((String) payload.get("removeAttach"));
+
+            if((Boolean) payload.get("removeAttach")) {
+                dbResponse = fileAttachmentDao.deleteAttachment(userPost.getPostId());
+            }else{
+                if(((List)payload.get("files")).size() != 0 && dbResponse){
+                    FileAttachment fileAttachment = (FileAttachment) ((List)payload.get("files")).get(0);
+                    fileAttachment.setPostId(userPost.getPostId());
+                    dbResponse = fileAttachmentDao.updateAttachment(fileAttachment);
+                }
+            }
         }
 
         int i =0;
