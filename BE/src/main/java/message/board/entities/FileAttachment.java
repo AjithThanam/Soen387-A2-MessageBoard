@@ -8,6 +8,8 @@ public class FileAttachment {
     private byte[] media;
     private int postId;
 
+    public FileAttachment(){}
+
     public FileAttachment(String filename, String filesize, String mediaType, byte[] media, int postId) {
         this.filename = filename;
         this.filesize = filesize;

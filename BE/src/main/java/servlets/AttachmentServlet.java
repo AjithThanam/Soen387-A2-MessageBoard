@@ -65,7 +65,7 @@ public class AttachmentServlet extends HttpServlet {
 
     private HashMap<String, Object> getPayload(HttpServletRequest request){
         HashMap<String, Object> requestData = new HashMap<>();
-        List<File> uploadedFiles = new ArrayList<>();
+        List<FileAttachment> uploadedFiles = new ArrayList<>();
         try {
             DiskFileItemFactory factory = new DiskFileItemFactory();
             factory.setSizeThreshold(1000000);
@@ -83,8 +83,15 @@ public class AttachmentServlet extends HttpServlet {
                             //Use for testing
                             //String filePath = "C:\\Users\\Home\\Desktop\\test_dump" + File.separator + fileName;
                             String filePath = fileName;
-                            File fileData = new File(filePath);
-                            uploadedFiles.add(fileData);
+                            //File fileData = new File(filePath);
+
+                            FileAttachment fileInput = new FileAttachment();
+                            fileInput.setFilename(fileName);
+                            fileInput.setFilesize(item.getSize() + "");
+                            fileInput.setMediaType(fileName.split("\\.")[1]);
+                            fileInput.setMedia(item.get());
+
+                            uploadedFiles.add(fileInput);
 
                             ////Use for testing
                             //item.write(fileData);
