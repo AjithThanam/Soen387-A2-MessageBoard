@@ -31,3 +31,8 @@ select, option{
     color:green;
     font-size: 22px;
 }
+
+.createPost{
+    padding-top: 10px;
+    margin-left: 94%;
+}

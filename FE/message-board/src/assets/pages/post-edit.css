@@ -5,11 +5,11 @@ body{
 .card {
     width: fit-content;
     margin: auto;
-    margin-top: 10%;
+    margin-top: 8%;
     padding: 3%;
  }
 
-.centered{
+ .centered{
     margin: auto;
 }
 
@@ -22,4 +22,3 @@ body{
 .title{
     width: 290px;
 }
-

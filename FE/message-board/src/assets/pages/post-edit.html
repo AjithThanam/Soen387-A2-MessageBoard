@@ -2,24 +2,32 @@
    <head>
       <title> Message Board </title>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+      <link rel="stylesheet" href="post-edit.css">
    </head>
    <body onload="init()">
+      <div class="card">
+            <h2>Edit post</h2>
       <form id="mainForm" method="post" enctype="multipart/form-data">
             
-            Title :<input type="text" id="title" name="title"><br/>
-            Message :<input type="text" id="mes" name="message"><br/>
+            <h6> Title </h6> 
+                  <input class="title" type="text" id="title" name="title"><br/><br/>
+            <h6>Message </h6> 
+                  <input class="message" type="text" id="mes" name="message"><br/><br/>
 
-            <h2> Change Attachment </h2>
-            Remove Attachment: <input type="checkbox" id="removeAtt" name="removeAttach"><br/>
-            Select File to Upload:<input type="file" name="fileName"><br />
+            <h6> Change Attachment </h6>
+                  <input type="file" name="fileName"><br/><br/>
+            <h6>Remove Attachment</h6>
+                   Click to remove attachments  <input type="checkbox" name="removeAttach"><br />
 
             <input type="hidden" id="userId" name="userID"><br/>
             <input type="hidden" id="postId" name="postID"><br/>
 
-            <input type="submit" value="Upload">
+            <div style="padding-left: 38.5%;"><input type="submit" value="Upload"></div>
       </form>
 
-      <a href="/home">Back</a>
+      <div class="centered"><a href="/home">Back</a></div>
 
       <script>
             function init(){
@@ -42,5 +50,7 @@
 
       </script>
 
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
    </body>
 </html>
