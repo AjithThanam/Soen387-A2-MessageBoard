@@ -1,0 +1,25 @@
+body{
+    background: #00000030;
+}
+
+.card {
+    width: fit-content;
+    margin: auto;
+    margin-top: 15%;
+    padding: 3%;
+ }
+
+.centered{
+    margin: auto;
+}
+
+.message{
+    height: 100px;
+    width: 290px;
+    word-break: break-word;
+}
+
+.title{
+    width: 290px;
+}
+
