@@ -49,17 +49,21 @@ export class PostListComponent implements OnInit {
   }
 
   deletePost(id: any){
-
-    for(let i = 0; i < this.currentPosts.length; i++){
-      if(this.currentPosts[i].id == id){
-          this.currentPosts.splice(i, 1);
-      }
-    }
-    /*
-    this.service.deletePost(id).subscribe( res => {
+    debugger;
+    this.service.deletePost(id).subscribe( (res: any) => {
         alert(res);
+
+        if(res.success){
+        for(let i = 0; i < this.currentPosts.length; i++){
+          if(this.currentPosts[i].id == id){
+            this.currentPosts.splice(i, 1);
+         }
+        }
+        }else{
+          alert("Delete failed");
+        }
     });
-      */
+    
   }
 
   isMyPost(post: Post):boolean{
@@ -78,6 +82,6 @@ export class PostListComponent implements OnInit {
     const postID = encodeURI(postId);
     var filterUrl = new URL("url");
     filterUrl.searchParams.append("postID", postID);
-    window.location.href = filterUrl;
+    //window.location.href = filterUrl;
   }
 }

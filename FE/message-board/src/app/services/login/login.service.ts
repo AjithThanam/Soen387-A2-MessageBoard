@@ -13,7 +13,7 @@ export class LoginService {
   constructor(private http: HttpClient, private state: GlobalStateService) { }
 
   login(username: string, password: string): Observable<any> {
-    let url = 'https://0aea913b10cf.ngrok.io/MessageBoard_war_exploded/MessageBoardServlet'; 
+    let url = 'https://d3955423a4b3.ngrok.io/MessageBoard_war_exploded/MessageBoardServlet'; 
     const payload = new HttpParams().set('email', username).set('password', password);
     let httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })

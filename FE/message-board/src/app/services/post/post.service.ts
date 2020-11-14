@@ -12,7 +12,7 @@ import { GlobalStateService } from '../../services/global-state/global-state.ser
   providedIn: 'root'
 })
 export class PostService {
-  baseURL: string = "https://105fc4c7fcba.ngrok.io/MessageBoard_war_exploded/UserPost";
+  baseURL: string = "https://d3955423a4b3.ngrok.io/MessageBoard_war_exploded/UserPost";
 
 
   constructor(private http: HttpClient, private state: GlobalStateService) { }
@@ -25,7 +25,7 @@ export class PostService {
 
     if(myPost != null){
       useFilter = true;
-      url = url + "?" + "userid=" + encodeURIComponent(myPost); 
+      url = url + "?" + "username=" + encodeURIComponent(myPost); 
     }
 
     if(start != null){
@@ -48,9 +48,9 @@ export class PostService {
       url = url + andText + "hashtag=" + encodeURIComponent(hashTags);  
     }
 
-    //alert(url);
+    alert(url);
 
-    /*
+    
     return this.http.get(url, {responseType: 'json'}).pipe(
       switchMap((resp: any) => {
          let postsJSONArr: any = resp.posts;
@@ -78,8 +78,8 @@ export class PostService {
          return of(posts);
       })
     );
-    */
-    return of(this.getMockPost());
+    
+    //return of(this.getMockPost());
   }
 
   formatDateStr(date: any){
@@ -87,8 +87,14 @@ export class PostService {
   }
 
   deletePost(id: string){
-    let url = this.baseURL + "?" + "postId=" + encodeURIComponent(id);
-    return this.http.get(url, {responseType: 'json'});
+    debugger;
+    let url = this.baseURL;
+    alert(url);
+    const payload = new HttpParams().set('id', id);
+    let httpOptions = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
+    }; 
+    return this.http.post<any>(url, payload, httpOptions);
   }
 
   getMockPost(): Post[]{

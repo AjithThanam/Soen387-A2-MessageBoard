@@ -4,13 +4,13 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
    </head>
    <body onload="init()">
-      <form action="https://105fc4c7fcba.ngrok.io/MessageBoard_war_exploded/attachments" method="post" enctype="multipart/form-data">
+      <form action="https://d3955423a4b3.ngrok.io/MessageBoard_war_exploded/attachments" method="post" enctype="multipart/form-data">
             
             Title :<input type="text" id="title" name="title"><br/>
             Message :<input type="text" id="mes" name="message"><br/>
 
             <h2> Change Attachment </h2>
-            Remove Attachment: <input type="checkbox" name="removeAttach"><br/>
+            Remove Attachment: <input type="checkbox" id="removeAtt" name="removeAttach"><br/>
             Select File to Upload:<input type="file" name="fileName"><br />
 
             <input type="hidden" id="userId" name="userID"><br/>
@@ -32,7 +32,8 @@
                   document.getElementById("title").value = current_post.title;
                   document.getElementById("mes").value = current_post.message;
             }
-</script>
+
+      </script>
 
    </body>
 </html>
