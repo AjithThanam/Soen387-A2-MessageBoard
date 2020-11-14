@@ -72,15 +72,14 @@ public class UserPostDaoImpl implements UserPostDAO{
         Connection connection = DatabaseConnection.getConnection();
 
         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE t_post SET title=?, message=?, username=?, date_time=?, last_modified=?, hashtags=? WHERE user_id=?");
+            PreparedStatement ps = connection.prepareStatement("UPDATE t_post SET title=?, message=?, username=?, last_modified=?, hashtags=? WHERE id=?");
 
             ps.setString(1,post.getTitle());
             ps.setString(2, post.getMessage());
             ps.setString(3,post.getUsername());
-            ps.setDate(4,java.sql.Date.valueOf(post.getDateTime().toString().substring(0,10)));
-            ps.setDate(5,java.sql.Date.valueOf(post.getLastModified().toString().substring(0,10)));
-            ps.setString(6,retrieveHashtagList(post));
-            ps.setInt(7,post.getPostId());
+            ps.setDate(4,java.sql.Date.valueOf(post.getLastModified().toString().substring(0,10)));
+            ps.setString(5,retrieveHashtagList(post));
+            ps.setInt(6,post.getPostId());
 
             int i = ps.executeUpdate();
 

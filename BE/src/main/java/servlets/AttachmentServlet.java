@@ -1,6 +1,8 @@
 package servlets;
 
+import dao.implementation.FileAttachementDaoImpl;
 import dao.implementation.UserPostDaoImpl;
+import message.board.entities.FileAttachment;
 import message.board.entities.UserPost;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -17,10 +19,8 @@ import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Date;
+import java.util.*;
 
 public class AttachmentServlet extends HttpServlet {
 
@@ -28,10 +28,31 @@ public class AttachmentServlet extends HttpServlet {
 
         HashMap<String, Object> payload = getPayload(request);
         UserPostDaoImpl userPostDao = new UserPostDaoImpl();
+        FileAttachementDaoImpl fileAttachmentDao = new FileAttachementDaoImpl();
 
-        UserPost up = new UserPost((String)payload.get("title"), (String)payload.get("message"), (String)payload.get("userID"));
+        boolean dbResponse;
+        //If no ID is given assume it is a new post, if ID is given update existing post.
+        if (payload.get("postID") == null){
+            UserPost up = new UserPost((String) payload.get("title"), (String) payload.get("message"), (String) payload.get("userID"));
+            dbResponse = userPostDao.insertPost(up);
 
-        boolean dbResponse = userPostDao.insertPost(up);
+            if(((List)payload.get("files")).size() != 0){
+                File file = (File)((List)payload.get("files")).get(0);
+                String filePath = file.getAbsolutePath();
+                String fileSize = FileAttachementDaoImpl.getFileSize(file);
+                String mediaType = FileAttachementDaoImpl.getMediaType(filePath);
+                byte[] byteArray = FileAttachementDaoImpl.getByteArr(file);
+                FileAttachment attachment = new FileAttachment(file.getName(), fileSize, mediaType, byteArray, up.getPostId());
+                fileAttachmentDao.insertAttachment(attachment);
+            }
+
+        }else{
+            int id = Integer.parseInt((String)payload.get("postID"));
+
+            UserPost userPost = new UserPost(id, (String) payload.get("title"), (String) payload.get("message"),
+                    (String) payload.get("userID"), null, new Date(Calendar.getInstance().getTime().getTime()));
+            dbResponse = userPostDao.updatePost(userPost);
+        }
 
         int i =0;
 

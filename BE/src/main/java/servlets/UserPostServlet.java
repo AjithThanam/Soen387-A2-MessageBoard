@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.List;
 
 @WebServlet(name = "servlets.UserPostServlet")
@@ -28,6 +29,13 @@ public class UserPostServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        String stringId = request.getParameter("id");
+        int id = Integer.parseInt(stringId);
+
+        boolean dbResponse = userPostDao.deletePost(id);
+        JSONObject jsonResponse = new JSONObject();
+        jsonResponse.put("success", dbResponse);
+        sendResponse(response, jsonResponse);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -52,10 +60,6 @@ public class UserPostServlet extends HttpServlet {
             throwables.printStackTrace();
         }
 
-        response.setContentType("application/json");
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setCharacterEncoding("UTF-8");
-
         JSONObject jsonResponse = new JSONObject();
         JSONArray postJson = new JSONArray();
         for (UserPost post: posts) {
@@ -70,20 +74,10 @@ public class UserPostServlet extends HttpServlet {
             postJson.put(postInfoJson);
         }
         jsonResponse.put("posts", postJson);
-        PrintWriter writer = response.getWriter();
-        writer.append(jsonResponse.toString());
+        sendResponse(response, jsonResponse);
     }
 
-    @Override
-    public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
-    {
-        String stringId = request.getParameter("id");
-        int id = Integer.parseInt(stringId);
-
-        boolean databaseResponse = userPostDao.deletePost(id);
-        JSONObject jsonResponse = new JSONObject();
-        jsonResponse.put("success", databaseResponse);
-
+    private void sendResponse(HttpServletResponse response, JSONObject jsonResponse) throws IOException {
         response.setContentType("application/json");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setCharacterEncoding("UTF-8");
