@@ -7,15 +7,21 @@ import { switchMap } from 'rxjs/operators';
 
 import { Post } from '../../models/Post'
 import { GlobalStateService } from '../../services/global-state/global-state.service';
+import { environment } from '../../config/environment'
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
-  baseURL: string = "https://d3955423a4b3.ngrok.io/MessageBoard_war_exploded/UserPost";
+  baseURL: string;
 
 
-  constructor(private http: HttpClient, private state: GlobalStateService) { }
+  constructor(private http: HttpClient, private state: GlobalStateService) { 
+    let domain = environment["domain"];
+    this.baseURL = domain + '/MessageBoard_war_exploded/UserPost';
+  }
 
   getPost(myPost: string, start: Date, end: Date, hashTags: string): Observable<Post[]>{
 

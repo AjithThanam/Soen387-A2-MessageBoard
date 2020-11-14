@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../config/environment'
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,7 @@ export class GlobalStateService {
     this.isLoggedIn = localStorage.getItem('loggedIn') != null && localStorage.getItem('loggedIn') === 'true';
     this.userId = localStorage.getItem('id');
     this.sessionId = localStorage.getItem('ses');
-
+    localStorage.setItem('domain', environment["domain"]);
   }
 
   setLoggedIn(loggedIn: boolean){

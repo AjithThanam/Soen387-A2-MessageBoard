@@ -4,7 +4,7 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
    </head>
    <body onload="init()">
-      <form action="https://d3955423a4b3.ngrok.io/MessageBoard_war_exploded/attachments" method="post" enctype="multipart/form-data">
+      <form id="mainForm" method="post" enctype="multipart/form-data">
             Select File to Upload:<input type="file" name="fileName"><br />
             Title :<input type="text" name="title"><br/>
             Message :<input type="text" name="message"><br/>
@@ -16,11 +16,17 @@
 
       <script>
             function init(){
+                  setURL();
                   if(localStorage.getItem('loggedIn') !== 'true'){
                         window.location.href = '/login';
                   }
 
                   document.getElementById("userId").value = localStorage.getItem('id');
+            }
+
+            function setURL(){
+                  let domain = localStorage.getItem('domain');
+                  document.getElementById("mainForm").action = domain + "/MessageBoard_war_exploded/attachments";
             }
       </script>
    </body>
