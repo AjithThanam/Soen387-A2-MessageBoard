@@ -2,6 +2,14 @@
 
 # Start the server
 
+## Setting up SQL Server
+
+1. Sign into your local MYSQL server and `CREATE DATABASE soen_387` and `USE soen_387`.
+1. Run `schema.sql` in your local MySQL server. (MySQL version 8). 
+2. Ensure the following user exists: {Root:no pass}
+3. Ensure database is deployed using the following params: `jdbc:mysql://localhost:3306/`
+
+
 ## Running the Java Servlet
 
 1. Open pom.xml in BE folder as a intellij project.
