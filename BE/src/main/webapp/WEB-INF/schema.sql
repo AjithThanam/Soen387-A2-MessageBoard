@@ -1,12 +1,12 @@
-DROP TABLE IF EXISTS t_Post;
 DROP TABLE IF EXISTS t_Attachment;
+DROP TABLE IF EXISTS t_Post;
 
 CREATE TABLE t_Post(
     id int PRIMARY KEY AUTO_INCREMENT, 
     title varchar(255) NOT NULL,
     date_time date, 
     last_modified date,
-    message varchar(255), 
+    message varchar(65535),
     hashtags varchar(255),
     username varchar(255)
 )ENGINE=InnoDB;

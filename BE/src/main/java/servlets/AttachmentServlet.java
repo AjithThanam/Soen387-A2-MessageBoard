@@ -49,19 +49,29 @@ public class AttachmentServlet extends HttpServlet {
 
         }else{
             int id = Integer.parseInt((String)payload.get("postID"));
-            String updatedTitle = payload.get("title") + " (edited)";
+            String updatedTitle = (String) payload.get("title");
+
+            if(!updatedTitle.contains("(edited)")){
+                updatedTitle = updatedTitle + " (edited)";
+            }
 
             UserPost userPost = new UserPost(id, updatedTitle, (String) payload.get("message"),
                     (String) payload.get("userID"), null, new Date(Calendar.getInstance().getTime().getTime()));
             dbResponse = userPostDao.updatePost(userPost);
 
             if(payload.get("removeAttach") != null) {
-                dbResponse = fileAttachmentDao.deleteAttachment(userPost.getPostId());
+                dbResponse = fileAttachmentDao.deleteAttachment(id);
             }else{
                 if(((List)payload.get("files")).size() != 0 && dbResponse){
                     FileAttachment fileAttachment = (FileAttachment) ((List)payload.get("files")).get(0);
-                    fileAttachment.setPostId(userPost.getPostId());
-                    dbResponse = fileAttachmentDao.updateAttachment(fileAttachment);
+                    fileAttachment.setPostId(id);
+                    //check if there is an existing file for this post
+                    FileAttachment existingFileAttachment = fileAttachmentDao.getAttachment(id);
+                    //if this post has an attachment, edit it else create a new attachment
+                    if(existingFileAttachment != null)
+                        dbResponse = fileAttachmentDao.updateAttachment(fileAttachment);
+                    else
+                        dbResponse = fileAttachmentDao.insertAttachment(fileAttachment);
                 }
             }
         }

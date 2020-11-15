@@ -1,5 +1,6 @@
 package servlets;
 
+import dao.implementation.FileAttachementDaoImpl;
 import dao.implementation.UserPostDaoImpl;
 import message.board.entities.UserPost;
 import org.json.JSONArray;
@@ -21,10 +22,12 @@ import java.util.List;
 public class UserPostServlet extends HttpServlet {
 
     UserPostDaoImpl userPostDao;
+    FileAttachementDaoImpl fileAttachmentDao;
 
     @Override
     public void init() {
         userPostDao = new UserPostDaoImpl();
+        fileAttachmentDao = new FileAttachementDaoImpl();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -60,6 +63,12 @@ public class UserPostServlet extends HttpServlet {
             throwables.printStackTrace();
         }
 
+        for (UserPost u: posts) {
+            if(fileAttachmentDao.getAttachment(u.getPostId()) != null){
+                u.setHasAttachment(true);
+            }
+        }
+
         JSONObject jsonResponse = new JSONObject();
         JSONArray postJson = new JSONArray();
         for (UserPost post: posts) {
@@ -71,6 +80,7 @@ public class UserPostServlet extends HttpServlet {
             postInfoJson.put("dateTime", post.getDateTime());
             postInfoJson.put("lastModified", post.getLastModified());
             postInfoJson.put("hashtag", post.getHashtags());
+            postInfoJson.put("hasAttachment", post.isHasAttachment());
             postJson.put(postInfoJson);
         }
         jsonResponse.put("posts", postJson);

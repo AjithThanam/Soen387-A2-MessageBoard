@@ -14,6 +14,7 @@ public class UserPost {
     private Date dateTime;
     private Date lastModified;
     private List<String> hashtags;
+    private boolean hasAttachment;
 
     public UserPost(String title, String mes, String user){
         this.title = title;
@@ -32,6 +33,7 @@ public class UserPost {
         this.username = username;
         this.dateTime = dateTime;
         this.lastModified = lastModified;
+        this.hasAttachment = false;
         retrieveHastags(message);
     }
 
@@ -92,6 +94,18 @@ public class UserPost {
 
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public void setHashtags(List<String> hashtags) {
+        this.hashtags = hashtags;
+    }
+
+    public boolean isHasAttachment() {
+        return hasAttachment;
+    }
+
+    public void setHasAttachment(boolean hasAttachment) {
+        this.hasAttachment = hasAttachment;
     }
 
     private void retrieveHastags(String message){
