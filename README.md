@@ -1,7 +1,5 @@
 # Soen387-A2-MessageBoard
 
-# Start the server
-
 ## Setting up SQL Server
 
 1. Sign into your local MYSQL server and `CREATE DATABASE soen_387` and `USE soen_387`.
