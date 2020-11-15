@@ -5,11 +5,27 @@
          version="4.0">
     <servlet>
         <servlet-name>Servlet</servlet-name>
-        <servlet-class>Servlet</servlet-class>
+        <servlet-class>servlets.Servlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Servlet</servlet-name>
         <url-pattern>/MessageBoardServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UserPostServlet</servlet-name>
+        <servlet-class>servlets.UserPostServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserPostServlet</servlet-name>
+        <url-pattern>/UserPost</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AttachmentServlet</servlet-name>
+        <servlet-class>servlets.AttachmentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AttachmentServlet</servlet-name>
+        <url-pattern>/attachments</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
