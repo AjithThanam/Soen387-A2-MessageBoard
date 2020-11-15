@@ -1,0 +1,51 @@
+<nav class="navbar navbar-dark bg-dark">
+
+   <div>
+      <h5>Message Board</h5>
+   </div>
+
+   <div>
+      <input size="60" type="text"  [formControl]="hashTags"/>
+      <button (click)="findByHashTag()" type="button" class="btn btn-secondary">Find By Tag</button>
+   </div>
+
+   <div>
+      <label>Start Date</label>
+      <input type="datetime-local" id="start-time" [formControl]="start" min="2020-01-01T00:00"/>
+   </div>
+
+   <div>
+      <label>End Date</label>
+      <input type="datetime-local" id="end-time" [formControl]="end" min="2020-01-01T00:00"/>
+      <button (click)="findPostByDateRange()" type="button" class="btn btn-secondary"> Filter </button>
+      <button (click)="findMyPosts()" type="button" class="btn btn-secondary"> View My Posts </button>
+   </div>
+
+
+   <div>      
+      <app-login></app-login>
+   </div>
+
+
+</nav>
+
+
+
+<div class="createPost"><button onclick="location.href='/assets/pages/post-create.html'" type="button" class="btn btn-primary"> Create Post </button></div>
+
+<div class="card" *ngFor="let post of currentPosts">
+   <h6>
+      {{post.title}}
+            <span class="iconsPosition">
+               <span *ngIf="isMyPost(post)">
+                  <i (click)="setEditPost(post)" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  <i (click)="deletePost(post.id)" class="fa fa-trash-o" aria-hidden="true"></i>
+               </span>
+                  <i (click)="downloadAttachments(post.id)" class="fa fa-download" aria-hidden="true"></i>
+            </span>
+   </h6>   
+   <p>
+      {{post.message}}
+   </p>      
+   
+</div>

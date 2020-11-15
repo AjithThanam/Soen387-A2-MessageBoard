@@ -1,0 +1,27 @@
+
+<div>
+    <label> Title : <br><input type="text" [formControl]="newTitle"/> </label>
+    <br>
+    <label> Message: <br><input type="textarea" [formControl]="newMessage"/> </label>
+</div> 
+
+<ngx-dropzone (change)="onSelect($event)">
+    <ngx-dropzone-label>Drop File Here</ngx-dropzone-label> 
+    <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+    </ngx-dropzone-preview>
+</ngx-dropzone>
+
+<button (click)="savePost()"> Save </button>
+
+
+
+<!--
+<form method="POST" enctype="multipart/form-data" action="http://localhost:8080/MessageBoard_war_exploded/attachments">
+  File to upload: <input type="file" name="upfile"><br/>
+  New Title: <input type="text" name="title"><br/>
+  New Message: <input type="text" name="message"><br/>
+  <br/>
+  <input type="submit" value="Press"> to upload the file!
+</form>
+-->

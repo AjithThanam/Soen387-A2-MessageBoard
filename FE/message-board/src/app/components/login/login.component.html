@@ -1,0 +1,23 @@
+
+
+    <div class="card" *ngIf="!state.isLoggedIn; else elseBlock">
+    
+        <h3>Messaging Board</h3>
+        <br/>
+        <div>
+            <label> Username: <br><input size="30" type="text" [formControl]="username"/> </label>
+            <br/>
+            <label> Password: <br><input size="30" type="password" [formControl]="pwd"/> </label>
+        </div> 
+        <br/>
+            <button class="btn btn-dark" (click)="login()">Login</button>
+        <br/>
+        <br/>
+            <button class="btn btn-dark" (click)="unsupportedOperation()">Register</button>
+        <br/>
+    </div>
+    <div>
+        <ng-template #elseBlock><button (click)="logoff()" type="button" class="btn btn-danger">Log out</button></ng-template>
+    </div>
+    
+
