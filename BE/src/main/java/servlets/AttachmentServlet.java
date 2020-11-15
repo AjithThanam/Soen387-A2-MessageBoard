@@ -49,8 +49,9 @@ public class AttachmentServlet extends HttpServlet {
 
         }else{
             int id = Integer.parseInt((String)payload.get("postID"));
+            String updatedTitle = payload.get("title") + " (edited)";
 
-            UserPost userPost = new UserPost(id, (String) payload.get("title"), (String) payload.get("message"),
+            UserPost userPost = new UserPost(id, updatedTitle, (String) payload.get("message"),
                     (String) payload.get("userID"), null, new Date(Calendar.getInstance().getTime().getTime()));
             dbResponse = userPostDao.updatePost(userPost);
 
@@ -112,7 +113,7 @@ public class AttachmentServlet extends HttpServlet {
                         else{
 
                             String key = item.getFieldName();
-                            String value = item.getString();
+                            String value = item.getString().replaceAll("<.*?>", "");
                             requestData.put(key, value);
                         }
                     }
