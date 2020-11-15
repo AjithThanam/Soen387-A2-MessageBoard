@@ -10,6 +10,7 @@ export class Post{
     message: string;
     tags: string;
     userId: string;
+    hasAtt: boolean;
 
     constructor(){}
 

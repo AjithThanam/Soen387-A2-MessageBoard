@@ -59,6 +59,7 @@ export class PostService {
       switchMap((resp: any) => {
          let postsJSONArr: any = resp.posts;
 
+        debugger;
          let posts: Post[] = [];
          for(let i = 0; i < postsJSONArr.length; i++){
             let p = new Post();
@@ -76,6 +77,7 @@ export class PostService {
                tagstr = tagstr + " " + tagJson[j];
             }
             p.tags = tagstr;
+            p.hasAtt = jsonPost.hasAttachment;
             posts.push(p);
          }  
 
