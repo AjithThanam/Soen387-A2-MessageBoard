@@ -27,7 +27,7 @@
 
 3. Run `ng serve` to run the application. 
 
-Notes: Ensure the angular application to using the proper backend url: (config/environment.ts)
+Notes: Ensure the angular application is using the proper backend url: (config/environment.ts)
 
 
 Authors: 
