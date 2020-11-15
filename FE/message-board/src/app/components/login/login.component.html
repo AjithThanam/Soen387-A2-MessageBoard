@@ -5,9 +5,9 @@
         <h3>Messaging Board</h3>
         <br/>
         <div>
-            <label> Username: <br><input size="30" type="text" [formControl]="username"/> </label>
+            <label> Username: <br><input size="30" type="text" [formControl]="username" required/> </label>
             <br/>
-            <label> Password: <br><input size="30" type="password" [formControl]="pwd"/> </label>
+            <label> Password: <br><input size="30" type="password" [formControl]="pwd" required/> </label>
         </div> 
         <br/>
             <button class="btn btn-dark" (click)="login()">Login</button>

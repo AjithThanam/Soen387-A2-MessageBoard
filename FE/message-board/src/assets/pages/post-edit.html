@@ -36,6 +36,7 @@
                   if(localStorage.getItem('loggedIn') !== 'true'){
                         window.location.href = '/login';
                   }
+
                   var current_post = JSON.parse(localStorage.getItem('edit-post'));
                   document.getElementById("userId").value = localStorage.getItem('id');
                   document.getElementById("postId").value = current_post.id;

@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
+
     let result: any = this.loginService.login(this.username.value, this.pwd.value).subscribe(
       res => {
         if(res.success === "true"){
@@ -37,7 +38,7 @@ export class LoginComponent implements OnInit {
           this.state.setUserId(userId);
           this.redirectToMain();
         }else{
-            alert("Invalid");
+            alert("Invalid credentials provided");
         }
       });
   }

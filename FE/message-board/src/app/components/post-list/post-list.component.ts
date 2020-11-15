@@ -35,11 +35,24 @@ export class PostListComponent implements OnInit {
   }
 
   findPostByDateRange(){
-    let startDate = this.start.value.split("T")[0];
-    let endDate =  this.end.value.split("T")[0];
-    //yyyy-mm-dd
 
-    this.service.getPost(null, startDate,endDate, null).subscribe((posts) => this.currentPosts = posts);
+    try {
+      let validDate = false;
+      let startDate = this.start.value.split("T")[0];
+      let endDate = this.end.value.split("T")[0];
+
+      let dateStart = new Date(startDate);
+      let dateEnd = new Date(endDate);
+
+      //yyyy-mm-dd
+      if (dateStart < dateEnd) {
+        this.service.getPost(null, startDate, endDate, null).subscribe((posts) => this.currentPosts = posts);
+      } else {
+        alert("Invalid Date input");
+      }
+    } catch (err) {
+        alert("Invalid Date input");
+    }
   }
 
   findMostRecentPost(){
