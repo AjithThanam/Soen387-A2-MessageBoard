@@ -6,12 +6,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+
+import lib.UserGroups;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 @WebServlet(name = "servlets.Servlet")
 public class Servlet extends HttpServlet {
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String email = request.getParameter("email");
@@ -21,7 +25,13 @@ public class Servlet extends HttpServlet {
         if(email != null && password != null) {
             result = authenticateUser(request, email, password);
         }
-        sendResponse(response, result);
+        JSONArray groups = new JSONArray();
+
+        if(result > -1){
+            groups = new UserGroups().getUserGroup(email, request);
+        }
+
+        sendResponse(response, result, groups);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,7 +58,7 @@ public class Servlet extends HttpServlet {
         InputStream inputStream = request.getServletContext().getResourceAsStream(filePath);
 
         JSONTokener jsonTokener = new JSONTokener(inputStream);
-        JSONObject jsonObject = new JSONObject(jsonTokener);
+        JSONObject jsonObject = new JSONObject(jsonTokener).getJSONObject("sysUsers");
 
         int result = -1;
         Boolean emailExists = jsonObject.isNull(email);
@@ -67,7 +77,7 @@ public class Servlet extends HttpServlet {
         return result;
     }
 
-    private void sendResponse(HttpServletResponse response, int result) throws IOException{
+    private void sendResponse(HttpServletResponse response, int result, JSONArray groups) throws IOException{
         response.setContentType("application/json");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setCharacterEncoding("UTF-8");
@@ -78,6 +88,7 @@ public class Servlet extends HttpServlet {
             data.put("userID" , result);
             //replace with actual session ID
             data.put("sessionID", "FAKESESSIONID");
+            data.put("groups", groups);
             jsonResponse.put("data", data);
         }else{
             jsonResponse.put("success", "false");

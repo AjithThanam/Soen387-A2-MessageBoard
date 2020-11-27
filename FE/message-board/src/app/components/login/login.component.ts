@@ -32,10 +32,12 @@ export class LoginComponent implements OnInit {
         if(res.success === "true"){
           let userId = this.username.value;
           let sessionId = res.data.sessionId;
+          let groups = res.data.groups;
 
           this.state.setLoggedIn(true);
           this.state.setSessionId(sessionId);
           this.state.setUserId(userId);
+          this.state.setUserGroups(groups)
           this.redirectToMain();
         }else{
             alert("Invalid credentials provided");

@@ -37,7 +37,7 @@
    <h6>
       {{post.title}}
             <span class="iconsPosition">
-               <span *ngIf="isMyPost(post)">
+               <span *ngIf="showControls(post)">
                   <i (click)="setEditPost(post)" class="fa fa-pencil-square-o" aria-hidden="true"></i>
                   <i (click)="deletePost(post.id)" class="fa fa-trash-o" aria-hidden="true"></i>
                </span>

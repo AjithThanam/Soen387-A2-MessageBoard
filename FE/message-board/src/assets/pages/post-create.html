@@ -18,6 +18,10 @@
             <h6>Message</h6>
                   <input class="message" type="textarea" name="message" required><br/><br/>
 
+            <h6>Group</h6>
+            <select name="group" id="groupInput">
+            </select>
+
             <h6>Attachments</h6>
             <input type="file" name="fileName"><br/>
             <input type="hidden" id="userId" name="userID"><br/>
@@ -39,6 +43,15 @@
             function setURL(){
                   let domain = localStorage.getItem('domain');
                   document.getElementById("mainForm").action = domain + "/MessageBoard_war_exploded/attachments";
+
+                  //load group options
+                  let groupOptions = JSON.parse(localStorage.getItem('groups'));
+                  let groupHtml = document.getElementById('groupInput');
+                  for(var i = 0; i < groupOptions.length; i++){
+                        var groupName = groupOptions[i];
+                        alert(groupName);
+                        groupHtml.options[groupHtml.options.length] = new Option(groupName, groupName);
+                  }
             }
       </script>
       </div>

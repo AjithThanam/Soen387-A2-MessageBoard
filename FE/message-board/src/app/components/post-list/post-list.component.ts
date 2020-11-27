@@ -78,7 +78,11 @@ export class PostListComponent implements OnInit {
     });
   }
 
-  isMyPost(post: Post):boolean{
+  showControls(post: Post):boolean{
+    if(this.state.groups.includes("admins")){
+      return true;
+    }
+
     let match = post.userId === this.state.userId;
     return match;
   }

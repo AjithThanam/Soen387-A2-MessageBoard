@@ -11,6 +11,7 @@ export class Post{
     tags: string;
     userId: string;
     hasAtt: boolean;
+    groups: string[];
 
     constructor(){}
 
