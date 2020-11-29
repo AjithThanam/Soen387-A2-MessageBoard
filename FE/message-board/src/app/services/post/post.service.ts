@@ -78,6 +78,9 @@ export class PostService {
             }
             p.tags = tagstr;
             p.hasAtt = jsonPost.hasAttachment;
+
+            // temp a
+            p.group = "encs";
             posts.push(p);
          }  
 

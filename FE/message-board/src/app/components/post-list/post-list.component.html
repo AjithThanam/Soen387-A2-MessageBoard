@@ -35,7 +35,7 @@
 
 <div class="card" *ngFor="let post of currentPosts">
    <h6>
-      {{post.title}}
+      {{post.title}} - {{post.userId}} - {{post.group}}
             <span class="iconsPosition">
                <span *ngIf="showControls(post)">
                   <i (click)="setEditPost(post)" class="fa fa-pencil-square-o" aria-hidden="true"></i>
