@@ -25,10 +25,11 @@ export class GlobalStateService {
   }
 
   setLoggedIn(loggedIn: boolean){
-    if(loggedIn){
-      this.isLoggedIn = loggedIn;
-      localStorage.setItem('loggedIn', loggedIn + "");
-    }else{
+    
+    this.isLoggedIn = loggedIn;
+    localStorage.setItem('loggedIn', loggedIn + "");
+    
+    if(!loggedIn){
       this.logoff();
     }
   }

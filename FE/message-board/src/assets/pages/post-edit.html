@@ -16,6 +16,9 @@
             <h6>Message </h6> 
                   <input class="message" type="text" id="mes" name="message"><br/><br/>
 
+            <h6>Group</h6>
+            <select name="group" id="groupInput"></select>
+
             <h6> Change Attachment </h6>
                   <input type="file" name="fileName"><br/><br/>
             <h6>Remove Attachment</h6>
@@ -42,11 +45,32 @@
                   document.getElementById("postId").value = current_post.id;
                   document.getElementById("title").value = current_post.title;
                   document.getElementById("mes").value = current_post.message;
+
+                  loadGroups(current_post.group);
             }
 
             function setURL(){
                   let domain = localStorage.getItem('domain');
                   document.getElementById("mainForm").action = domain + "/MessageBoard_war_exploded/attachments";
+
+            }
+
+            function loadGroups(currentGroup){
+                  //load group options
+                  let groupOptions = JSON.parse(localStorage.getItem('groups'));
+                  let groupHtml = document.getElementById('groupInput');
+                  
+                  //load current as first entry in dropdown
+                  groupHtml.options[groupHtml.options.length] = new Option(currentGroup, currentGroup);
+
+                  for(var i = 0; i < groupOptions.length; i++){
+                        var groupName = groupOptions[i];
+                        alert(groupName);
+                        if(groupName == currentGroup){
+                              continue;
+                        }
+                        groupHtml.options[groupHtml.options.length] = new Option(groupName, groupName);
+                  }
             }
 
       </script>

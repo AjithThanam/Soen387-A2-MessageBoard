@@ -64,7 +64,7 @@ export class PostListComponent implements OnInit {
   }
 
   deletePost(id: any){
-    debugger;
+    
     this.service.deletePost(id).subscribe( (res: any) => {
         if(res.success){
         for(let i = 0; i < this.currentPosts.length; i++){
@@ -88,7 +88,7 @@ export class PostListComponent implements OnInit {
   }
 
   setEditPost(post: Post){
-    debugger;
+    
     this.state.setEditPost(post);
     window.location.href = '/assets/pages/post-edit.html';
   }

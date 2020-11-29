@@ -38,11 +38,11 @@ export class PostCreateComponent implements OnInit {
     this.newPost.message = this.newMessage.value;
     alert(this.newTitle.value + " " + this.newMessage.value);
     var fs = this.files;
-    debugger;
+    
     let response = await this.service.createPost(this.newPost, this.files);
     /*
    this.service.createPost(this.newPost, this.files).subscribe(res => {
-      debugger;
+      
       console.log({res})
     })
     */

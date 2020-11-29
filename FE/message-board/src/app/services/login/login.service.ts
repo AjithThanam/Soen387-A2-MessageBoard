@@ -14,7 +14,7 @@ export class LoginService {
   constructor(private http: HttpClient, private state: GlobalStateService) { }
 
   login(username: string, password: string): Observable<any> {
-    debugger;
+    
     let domain = environment["domain"];
     let url = domain + '/MessageBoard_war_exploded/MessageBoardServlet'; 
     const payload = new HttpParams().set('email', username).set('password', password);
