@@ -45,8 +45,7 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  logoff(){
-    debugger;
+  logoff(){   
     this.state.setLoggedIn(false);
     this.router.navigate(['/login']);
   }

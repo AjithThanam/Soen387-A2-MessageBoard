@@ -59,7 +59,7 @@ export class PostService {
       switchMap((resp: any) => {
          let postsJSONArr: any = resp.posts;
 
-        debugger;
+        
          let posts: Post[] = [];
          for(let i = 0; i < postsJSONArr.length; i++){
             let p = new Post();
@@ -130,7 +130,7 @@ export class PostService {
     
     //https://bezkoder.com/angular-10-file-upload/
 
-    debugger;
+    
     let sessionID = this.state.sessionId;
     let url = 'http://localhost:8080/MessageBoard_war_exploded/attachments'; 
     
