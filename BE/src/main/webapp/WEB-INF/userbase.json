@@ -4,16 +4,27 @@
 			"pwd":"32250170A0DCA92D53EC9624F336CA24",
 			"fullname":"Sean Evans",
 			"userId":"1",
-			"groups": ["admins", "concordia", "encs", "public"]
+			"groups": ["public", "admins", "concordia", "encs"]
 		},
 		"kate.conor@gmail.com":{
 			"pwd":"32250170A0DCA92D53EC9624F336CA24",
 			"fullname":"Kate Conor",
 			"userId":"2",
-			"groups": ["concordia", "encs", "public"]
+			"groups": ["public", "concordia", "encs"]
+		},
+		"eduardo.austin@gmail.com":{
+			"pwd":"32250170A0DCA92D53EC9624F336CA24",
+			"fullname":"Eduardo Austin",
+			"userId":"3",
+			"groups": ["public", "soen"]
 		}
 	},
 	"sysGroups":{
+		"public":{
+			"id":"public",
+			"name":"Public group",
+			"parent":null
+		},
 		"admins":{
 			"id":"admins",
 			"name":"Admins of Website",
@@ -29,10 +40,15 @@
 			"name":"COMP and SOEN Students",
 			"parent":"concordia"
 		},
-		"public":{
-			"id":"public",
-			"name":"Public group",
-			"parent":null
+		"soen":{
+			"id":"soen",
+			"name":"SOEN Group",
+			"parent":"encs"
+		},
+		"comp":{
+			"id":"comp",
+			"name":"COMP SCI Group",
+			"parent":"encs"
 		}
 	}
 }
