@@ -21,7 +21,7 @@ export class PostListComponent implements OnInit {
   end = new FormControl();
   hashTags = new FormControl();
 
-  constructor(private service: PostService, private state: GlobalStateService) { }
+  constructor(private service: PostService, public state: GlobalStateService) { }
 
   ngOnInit(): void {
     this.findMostRecentPost();
@@ -31,7 +31,16 @@ export class PostListComponent implements OnInit {
   //  5 different types of filter - by on User Posted, date range (start and end) 
 
   findMyPosts(){
-    this.service.getPost(this.state.userId, null,null, null).subscribe((posts) => this.currentPosts = posts);
+    let currentUser = this.state.userId;
+    this.service.getPost(this.state.userId, null,null, null).subscribe((posts) => {
+      let postsToDisplay = [];
+      for(let i = 0; i < posts.length; i++){
+        if(posts[i].userId == currentUser){
+          postsToDisplay.push(posts[i])
+        }
+      }
+      this.currentPosts = postsToDisplay;
+    });
   }
 
   findPostByDateRange(){
@@ -46,7 +55,7 @@ export class PostListComponent implements OnInit {
 
       //yyyy-mm-dd
       if (dateStart < dateEnd) {
-        this.service.getPost(null, startDate, endDate, null).subscribe((posts) => this.currentPosts = posts);
+        this.service.getPost(this.state.userId, startDate, endDate, null).subscribe((posts) => this.currentPosts = posts);
       } else {
         alert("Invalid Date input");
       }
@@ -56,15 +65,14 @@ export class PostListComponent implements OnInit {
   }
 
   findMostRecentPost(){
-     this.service.getPost(null, null,null, null).subscribe((posts) => this.currentPosts = posts);
+     this.service.getPost(this.state.userId, null,null, null).subscribe((posts) => this.currentPosts = posts);
   }
 
   findByHashTag(){
-      this.service.getPost(null, null,null, this.hashTags.value).subscribe((posts) => this.currentPosts = posts);
+      this.service.getPost(this.state.userId, null,null, this.hashTags.value).subscribe((posts) => this.currentPosts = posts);
   }
 
-  deletePost(id: any){
-    
+  deletePost(id: any){  
     this.service.deletePost(id).subscribe( (res: any) => {
         if(res.success){
         for(let i = 0; i < this.currentPosts.length; i++){

@@ -1,3 +1,3 @@
 export const environment = {
-    "domain": "http://localhost:8080/"
+    "domain": "http://f1fba77c7a56.ngrok.io"
 };
