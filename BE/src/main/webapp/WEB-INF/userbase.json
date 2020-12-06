@@ -4,13 +4,13 @@
 			"pwd":"32250170A0DCA92D53EC9624F336CA24",
 			"fullname":"Sean Evans",
 			"userId":"1",
-			"groups": ["admins", "concordia", "encs"]
+			"groups": ["admins", "concordia", "encs", "public"]
 		},
 		"kate.conor@gmail.com":{
 			"pwd":"32250170A0DCA92D53EC9624F336CA24",
 			"fullname":"Kate Conor",
 			"userId":"2",
-			"groups": ["concordia", "encs"]
+			"groups": ["concordia", "encs", "public"]
 		}
 	},
 	"sysGroups":{
@@ -28,6 +28,11 @@
 			"id":"encs",
 			"name":"COMP and SOEN Students",
 			"parent":"concordia"
+		},
+		"public":{
+			"id":"public",
+			"name":"Public group",
+			"parent":null
 		}
 	}
 }

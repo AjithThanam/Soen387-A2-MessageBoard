@@ -14,19 +14,21 @@ public class UserPost {
     private Date dateTime;
     private Date lastModified;
     private List<String> hashtags;
+    private String group;
     private boolean hasAttachment;
 
-    public UserPost(String title, String mes, String user){
+    public UserPost(String title, String mes, String user, String group){
         this.title = title;
         this.message = mes;
         this.username = user;
         this.dateTime = new Date(Calendar.getInstance().getTime().getTime());
         System.out.print(this.dateTime);
         this.lastModified = this.dateTime;
+        this.group = group;
         retrieveHastags(mes);
     }
 
-    public UserPost(int postId, String title, String message, String username, Date dateTime, Date lastModified) {
+    public UserPost(int postId, String title, String message, String username, Date dateTime, Date lastModified, String group) {
         this.postId = postId;
         this.title = title;
         this.message = message;
@@ -34,6 +36,7 @@ public class UserPost {
         this.dateTime = dateTime;
         this.lastModified = lastModified;
         this.hasAttachment = false;
+        this.group = group;
         retrieveHastags(message);
     }
 
@@ -106,6 +109,14 @@ public class UserPost {
 
     public void setHasAttachment(boolean hasAttachment) {
         this.hasAttachment = hasAttachment;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     private void retrieveHastags(String message){

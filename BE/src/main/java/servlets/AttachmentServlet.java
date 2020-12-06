@@ -38,7 +38,8 @@ public class AttachmentServlet extends HttpServlet {
         boolean dbResponse;
         //If no ID is given assume it is a new post, if ID is given update existing post.
         if (payload.get("postID") == null){
-            UserPost up = new UserPost((String) payload.get("title"), (String) payload.get("message"), (String) payload.get("userID"));
+            UserPost up = new UserPost((String) payload.get("title"), (String) payload.get("message"),
+                    (String) payload.get("userID"), (String) payload.get("group"));
             dbResponse = userPostDao.insertPost(up);
 
             if(((List)payload.get("files")).size() != 0 && dbResponse){
@@ -56,7 +57,8 @@ public class AttachmentServlet extends HttpServlet {
             }
 
             UserPost userPost = new UserPost(id, updatedTitle, (String) payload.get("message"),
-                    (String) payload.get("userID"), null, new Date(Calendar.getInstance().getTime().getTime()));
+                    (String) payload.get("userID"), null, new Date(Calendar.getInstance().getTime().getTime()),
+                    (String) payload.get("group"));
             dbResponse = userPostDao.updatePost(userPost);
 
             if(payload.get("removeAttach") != null) {

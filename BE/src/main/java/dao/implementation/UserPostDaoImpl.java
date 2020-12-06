@@ -11,25 +11,12 @@ import java.util.List;
 
 public class UserPostDaoImpl implements UserPostDAO{
 
-    public static void main(String[] args){
-        UserPost post1 = new UserPost("First Post","Ayy sent my first post using my #WAP #ganggang", "ren");
-        UserPostDaoImpl dao = new UserPostDaoImpl();
-        dao.insertPost(post1);
-        //dao.deletePost(1);
-        /*
-        try {
-            List<UserPost> up = dao.getPosts("test",null, null, null);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }*/
-    }
-
     @Override
     public boolean insertPost(UserPost post) {
         Connection connection = DatabaseConnection.getConnection();
 
         try {
-            String query = "INSERT INTO t_post (title, message, username, date_time, last_modified, hashtags) VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO t_post (title, message, username, date_time, last_modified, hashtags, sys_group) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1,post.getTitle());
@@ -38,6 +25,7 @@ public class UserPostDaoImpl implements UserPostDAO{
             ps.setDate(4,post.getDateTime());
             ps.setDate(5,post.getLastModified());
             ps.setString(6,retrieveHashtagList(post));
+            ps.setString(7,post.getGroup());
 
             int i = ps.executeUpdate();
 
@@ -72,14 +60,15 @@ public class UserPostDaoImpl implements UserPostDAO{
         Connection connection = DatabaseConnection.getConnection();
 
         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE t_post SET title=?, message=?, username=?, last_modified=?, hashtags=? WHERE id=?");
+            PreparedStatement ps = connection.prepareStatement("UPDATE t_post SET title=?, message=?, username=?, last_modified=?, hashtags=?, sys_group=? WHERE id=?");
 
             ps.setString(1,post.getTitle());
             ps.setString(2, post.getMessage());
             ps.setString(3,post.getUsername());
             ps.setDate(4,java.sql.Date.valueOf(post.getLastModified().toString().substring(0,10)));
             ps.setString(5,retrieveHashtagList(post));
-            ps.setInt(6,post.getPostId());
+            ps.setString(6,post.getGroup());
+            ps.setInt(7,post.getPostId());
 
             int i = ps.executeUpdate();
 
@@ -138,7 +127,7 @@ public class UserPostDaoImpl implements UserPostDAO{
     }
 
     @Override
-    public List<UserPost> getPosts(String username, String hashtag, Date startDate, Date endDate) throws SQLException
+    public List<UserPost> getPosts(String hashtag, Date startDate, Date endDate, List<String> groups) throws SQLException
     {
 
         Connection con = DatabaseConnection.getConnection();
@@ -147,10 +136,7 @@ public class UserPostDaoImpl implements UserPostDAO{
         Boolean dateChecked = false;
         Boolean hashtagChecked = false;
 
-        if(username != null) {
-            query = query + " WHERE username = '" + username + "'";
-        }
-        else if(startDate != null && endDate != null) {
+        if(startDate != null && endDate != null) {
             query = query + " WHERE date_time BETWEEN '" + startDate + "' AND '" + endDate + "'";
             dateChecked = true;
         }
@@ -164,7 +150,16 @@ public class UserPostDaoImpl implements UserPostDAO{
 
         if(!hashtagChecked && hashtag != null)
             query =  query + " AND hashtags = '" + hashtag + "'";
-        query = query + " ORDER BY last_modified DESC;";
+
+        if(!hashtagChecked && !dateChecked)
+            query = query + " WHERE sys_group IN ('" + groups.get(0) + "'";
+        else
+            query = query + " AND sys_group IN ('" + groups.get(0) + "'";
+
+        for (int i = 1; i < groups.size(); i++) {
+            query = query + ",'" + groups.get(i) + "'";
+        }
+        query = query + ") ORDER BY last_modified DESC, id DESC;";
 
         try {
             Statement stmt = con.createStatement();
@@ -181,8 +176,9 @@ public class UserPostDaoImpl implements UserPostDAO{
                 Date lastModified = rs.getDate("last_modified");
                 String message = rs.getString("message");
                 String name = rs.getString("username");
+                String group = rs.getString("sys_group");
 
-                UserPost userPost = new UserPost(id, title, message, name, dateTime, lastModified);
+                UserPost userPost = new UserPost(id, title, message, name, dateTime, lastModified, group);
 
                 posts.add(userPost);
             }
