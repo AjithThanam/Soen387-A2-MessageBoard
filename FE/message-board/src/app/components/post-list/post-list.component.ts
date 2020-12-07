@@ -107,4 +107,11 @@ export class PostListComponent implements OnInit {
     filterUrl.searchParams.append("postID", postId);
     window.location.href = filterUrl as any;
   }
+
+  downloadXML(postId: any){
+    let url = environment["domain"] + "/MessageBoard_war_exploded/download";
+    let filterUrl = new URL(url);
+    filterUrl.searchParams.append("postID", postId);
+    window.location.href = filterUrl as any;
+  }
 }
