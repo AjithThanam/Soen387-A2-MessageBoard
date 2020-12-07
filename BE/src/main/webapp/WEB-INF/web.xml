@@ -27,6 +27,14 @@
         <servlet-name>AttachmentServlet</servlet-name>
         <url-pattern>/attachments</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>PostDownloadServlet</servlet-name>
+        <servlet-class>servlets.PostDownloadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PostDownloadServlet</servlet-name>
+        <url-pattern>/download</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>

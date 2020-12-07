@@ -12,4 +12,5 @@ public interface UserPostDAO {
     boolean updatePost(UserPost post);
     boolean deletePost(int id);
     List<UserPost> getPosts(String hashtag, Date startDate, Date endDate, List<String> groups) throws SQLException;
+    UserPost getPost(int postID);
 }

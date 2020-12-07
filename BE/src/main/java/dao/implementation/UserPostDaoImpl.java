@@ -2,6 +2,7 @@ package dao.implementation;
 
 import dao.interfaces.UserPostDAO;
 import database.DatabaseConnection;
+import message.board.entities.FileAttachment;
 import message.board.entities.UserPost;
 
 import java.sql.*;
@@ -197,4 +198,44 @@ public class UserPostDaoImpl implements UserPostDAO{
         return null;
 
     }
+
+    @Override
+    public UserPost getPost(int postID) {
+
+        Connection connection = DatabaseConnection.getConnection();
+
+        String query = "SELECT * FROM t_post WHERE id = ? ";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setInt(1, postID);
+
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                Date dateTime = rs.getDate("date_time");
+                Date lastModified = rs.getDate("last_modified");
+                String message = rs.getString("message");
+                String name = rs.getString("username");
+                String group = rs.getString("sys_group");
+
+                UserPost userPost = new UserPost(id, title, message, name, dateTime, lastModified, group);
+
+                return userPost;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return null;
+
+    }
+
 }
