@@ -16,7 +16,7 @@ public class UserManagerTest {
     UserManager userManager;
 
     @Before
-    public void setUpBeforeClass() {
+    public void setUp() {
         InputStream inputStream = null;
         InputStream inputStreamUserbase = null;
 
@@ -41,7 +41,7 @@ public class UserManagerTest {
     }
 
     @Test
-    public void testNonExistantUser() {
+    public void testNonExistentUser() {
         Assert.assertFalse(userManager.authenticateUser("wrong@gmail.com", "pass123"));
     }
 

@@ -85,7 +85,7 @@ public class UserPostDaoImplTest {
     }
 
     @AfterClass
-    public static void after(){
+    public static void cleanUp(){
 
         for (int i = 0; i < mockPostIDs.size(); i++)
             userPostDao.deletePost(mockPostIDs.get(i));

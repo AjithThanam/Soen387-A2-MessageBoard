@@ -16,7 +16,7 @@ public class UserGroupsTest {
     UserGroups userGroups;
 
     @Before
-    public void setUpBeforeClass() {
+    public void setUp() {
         userGroups = new UserGroups();
 
         try {
