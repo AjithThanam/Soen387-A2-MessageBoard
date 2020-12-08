@@ -8,7 +8,8 @@ CREATE TABLE t_Post(
     last_modified date,
     message varchar(65535),
     hashtags varchar(255),
-    username varchar(255)
+    username varchar(255),
+    sys_group varchar(255)
 )ENGINE=InnoDB;
 
 CREATE TABLE t_Attachment(

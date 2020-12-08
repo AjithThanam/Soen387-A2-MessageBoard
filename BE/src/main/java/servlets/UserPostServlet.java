@@ -2,6 +2,7 @@ package servlets;
 
 import dao.implementation.FileAttachementDaoImpl;
 import dao.implementation.UserPostDaoImpl;
+import lib.UserGroups;
 import message.board.entities.UserPost;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -56,9 +57,12 @@ public class UserPostServlet extends HttpServlet {
         if(endDate != null && endDate != "")
             dateEnd = Date.valueOf(endDate);
 
+        JSONArray groupsJSON = new UserGroups().getUserGroup(username, request);
+        List<String> groupsList = new UserGroups().toList(groupsJSON);
+
         List<UserPost> posts = null;
         try {
-            posts = userPostDao.getPosts(username, hashtag, dateStart, dateEnd);
+            posts = userPostDao.getPosts(hashtag, dateStart, dateEnd, groupsList);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -80,6 +84,7 @@ public class UserPostServlet extends HttpServlet {
             postInfoJson.put("dateTime", post.getDateTime());
             postInfoJson.put("lastModified", post.getLastModified());
             postInfoJson.put("hashtag", post.getHashtags());
+            postInfoJson.put("group", post.getGroup());
             postInfoJson.put("hasAttachment", post.isHasAttachment());
             postJson.put(postInfoJson);
         }
