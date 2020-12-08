@@ -28,9 +28,9 @@
 Notes: Ensure the angular application is using the proper backend url: (config/environment.ts)
 
 
-Authors: 
+Authors:
 
-Ajith Thanam
-Dimitri Spyropoulos
-Muneeb Nezameddin
-Renuchan Thambirajah
+Ajith Thanam - 40044064
+Dimitri Spyropoulos - 40063787
+Muneeb Nezameddin - 40043605
+Renuchan Thambirajah - 40059242 (Team lead)
