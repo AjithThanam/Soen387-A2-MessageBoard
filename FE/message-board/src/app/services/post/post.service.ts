@@ -29,10 +29,10 @@ export class PostService {
     let url = this.baseURL;
     //posts?userId=1&start=date&end=data
 
-    if(myPost != null){
+    //if(myPost != null){
       useFilter = true;
       url = url + "?" + "username=" + encodeURIComponent(myPost); 
-    }
+    //}
 
     if(start != null){
       if(!useFilter){
@@ -80,7 +80,7 @@ export class PostService {
             p.hasAtt = jsonPost.hasAttachment;
 
             // temp a
-            p.group = "encs";
+            p.group = jsonPost.group;
             posts.push(p);
          }  
 
