@@ -27,7 +27,8 @@ public class Servlet extends HttpServlet {
         if(email != null && password != null) {
             String filePath = "/WEB-INF/userbase.json";
             InputStream inputStream = request.getServletContext().getResourceAsStream(filePath);
-            UserManager userManager = UserManagerFactory.getInstance();
+            InputStream configInputStream = request.getServletContext().getResourceAsStream("/WEB-INF/config.properties");
+            UserManager userManager = UserManagerFactory.getInstance(configInputStream);
             userManager.setResource(inputStream);
             result = userManager.authenticateUser(email, password);
         }
