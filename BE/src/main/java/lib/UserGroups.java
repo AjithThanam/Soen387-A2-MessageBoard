@@ -33,4 +33,14 @@ public class UserGroups {
         }
         return groupsArr;
     }
+
+    public JSONArray getUserGroup(String email, InputStream inputStream){
+        JSONTokener jsonTokener = new JSONTokener(inputStream);
+        JSONObject jsonObject = new JSONObject(jsonTokener).getJSONObject("sysUsers");
+
+        JSONObject userInfo = jsonObject.getJSONObject(email);
+        JSONArray groups = userInfo.getJSONArray("groups");
+
+        return groups;
+    }
 }
